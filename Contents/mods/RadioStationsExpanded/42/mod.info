@@ -2,7 +2,6 @@ id=RadioStationsExpanded
 name=RadioStationsExpanded
 description= This is an expansion of the Zomboid Radio Station Events
 poster=poster.png
-tags=Build 42
-versionMin=42.*
+versionMin=42.0
 
 
