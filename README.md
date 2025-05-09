@@ -1,7 +1,8 @@
 # Radio Stations Expanded 📡💀
-> This is a mod about lore; it doesn't add new functionalities to the game, not yet...
+![](Contents/mods/RadioStationsExpanded/poster.png)
 
-
+> [!IMPORTANT]
+> _This is a mod about_ **lore/immersion**; _it doesn't add new functionalities to the game, not yet..._
 
 ## **Possible next features**
 - [ ] `Messages` _Create more messages presets and think of immersion ideas_
