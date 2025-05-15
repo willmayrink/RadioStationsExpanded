@@ -21,3 +21,7 @@ System.out.println("Please, kill me.")
 > First interaction between radio and character
 
 <a href="https://www.youtube.com/watch?v=zN7XL5dQ9iI" target="_blank"><img height="24" width="24" src="https://cdn.simpleicons.org/youtube/white" style="vertical-align:middle;" /></a>
+
+
+# Code Snippet 🖥️
+![](images/snippet1.png)
