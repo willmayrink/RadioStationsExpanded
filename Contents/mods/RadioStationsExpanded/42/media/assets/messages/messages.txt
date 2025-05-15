@@ -1,0 +1,68 @@
+[TriggeringMessages]
+WHAT COULD I HAVE POSSIBLY DONE? [...]|You could have saved them, that is what we are supposed to do...
+She is all I have left.|Hey, do you copy?
+THANKS GOD... FINALLY, COPY.|How is the situation in Rosewood?
+Its horrible, they are all over the city|Dammit, do you have any way to shelter?
+I am trying to, but they somehow got a way in at all my neighbors houses...|Calm down, try to hide somewhere and reach me out again, I promise I will try to help you out
+Anyone out there? I’ve got supplies, but I’m pinned down!|Where are you? We might be close enough to help.
+They’re breaking through... this might be it...|Hold on! Barricade everything and stay quiet!
+
+[ComplexMessages]
+Message1|A Survivor's Regret
+My name is Daniel.|153,0,0
+I have been hiding in the attic of a house off Route 42 for... God, I do not even know how long.|153,0,0
+There is a family downstairs - well, what is left of them.|153,0,0
+I could have helped.|153,0,0
+...|153,0,0
+<bzzt>|153,0,0
+I heard them screaming two nights ago, clawing at the door I barricaded.|153,0,0
+I just... froze.|153,0,0
+WHAT COULD I HAVE POSSIBLY DONE? [...]|153,0,0
+Now it is quiet, except for the groans.|153,0,0
+If anyone is out there, do not come here.|153,0,0
+But if you have got a spare bullet... maybe I would take it.|153,0,0
+As you might be judging by now, I deserve it...|153,0,0
+There is no more value in me...|153,0,0
+Over.|153,0,0
+
+Message2|A Parent's Plea
+This is Maria, broadcasting from somewhere near Rosewood.|153,0,0
+I probably should not say exactly where we are...|153,0,0
+But... I... We... But...|153,0,0
+I have got my little girl with me, Sofia. She is six years old.|153,0,0
+We are running low on everything - food, water, hope.|153,0,0
+The pharmacy on Main Street has been picked clean, and the dead are everywhere.|153,0,0
+If you have got a safe place, please, we will do anything.|153,0,0
+She is all I have left.|153,0,0
+THANKS GOD... FINALLY, COPY.|153,0,0
+Its...|153,0,0
+<bzzt>|153,0,0
+Its horrible, they are all over the city|153,0,0
+I am trying to, but they somehow got a way in at all my neighbors houses...|153,0,0
+
+Message3|A Scavenger's Warning
+This is Jake, broadcasting from the outskirts of Muldraugh.|153,0,0
+I’ve been scavenging for weeks, but it’s getting worse out here.|153,0,0
+The warehouse on the east side? It’s a trap. Infected everywhere.|153,0,0
+<bzzt>|153,0,0
+I saw a group try to raid it yesterday. None of them made it out.|153,0,0
+If you’re thinking of heading there, don’t. It’s a death sentence.|153,0,0
+I’ve got some ammo and canned food, but I’m pinned down near the gas station.|153,0,0
+Anyone out there? I’ve got supplies, but I’m pinned down!|153,0,0
+I heard someone talking about Rosewood. Maria, you still out there?|153,0,0
+Those things are everywhere, I can’t hold out much longer...|153,0,0
+If you’re listening, stay sharp. And stay away from that warehouse.|153,0,0
+Over and out.|153,0,0
+
+Message4|A Last Stand
+This is Sarah, holed up in a farmhouse near Riverside.|153,0,0
+I thought this place was safe, but they found us.|153,0,0
+<bzzt>|153,0,0
+My brother... he didn’t make it. I’m all that’s left.|153,0,0
+I’ve got a shotgun, but I’m almost out of shells.|153,0,0
+They’re breaking through... this might be it...|153,0,0
+If anyone’s out there, remember us. We tried.|153,0,0
+I’m not giving up, but... it’s bad.|153,0,0
+Someone mentioned a warehouse in Muldraugh. Is it safe?|153,0,0
+Please, if you’re out there, say something...|153,0,0
+Over.|153,0,0
