@@ -1,5 +1,5 @@
 # Radio Stations Expanded 📡💀
-![](Contents/mods/RadioStationsExpanded/poster.png)
+![](images/snippet1.png)
 
 > [!IMPORTANT]
 > _This is a mod about_ **lore/immersion**; _it doesn't add new functionalities to the game, not yet..._
@@ -23,5 +23,4 @@ System.out.println("Please, kill me.")
 <a href="https://www.youtube.com/watch?v=zN7XL5dQ9iI" target="_blank"><img height="24" width="24" src="https://cdn.simpleicons.org/youtube/white" style="vertical-align:middle;" /></a>
 
 
-# Code Snippet 🖥️
-![](images/snippet1.png)
+
