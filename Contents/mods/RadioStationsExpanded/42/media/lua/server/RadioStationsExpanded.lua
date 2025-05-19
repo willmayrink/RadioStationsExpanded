@@ -39,7 +39,7 @@ local function NPCAnswer(waveSignal)
     end
     for i = 1, #triggeringMessages, 2 do
         if sayLine == triggeringMessages[i] then
-            waveSignal:AddDeviceText(triggeringMessages[i + 1], 51, 153, 255, nil, nil, 0)
+            waveSignal:AddDeviceText(triggeringMessages[i + 1], 175, 175, 175, nil, nil, 0)
             break -- Exit loop after finding a match
         end
     end
@@ -91,42 +91,43 @@ local function createSurvivorTalesBroadcast()
         return
     end
 
-    local complexMessages = {{ -- Message 1: A Survivor’s Regret
-    RadioLine.new("My name is Daniel.",255, 204, 0),
-    RadioLine.new("I have been hiding in the attic of a house off Route 42 for... God, I do not even know how long.",255, 204, 0), 
-    RadioLine.new("There is a family downstairs - well, what is left of them.",255, 204, 0),
-    RadioLine.new("I could have helped.",255, 204, 0), -- Emotional guilt
-    RadioLine.new("...",255, 204, 0), 
-    RadioLine.new("<bzzt>",255, 204, 0),
-    RadioLine.new("I heard them screaming two nights ago, clawing at the door I barricaded.",255, 204, 0),
-    RadioLine.new("I just... froze.",255, 204, 0), -- Emotional paralysis
-    RadioLine.new("WHAT COULD I HAVE POSSIBLY DONE? [...]",255, 204, 0), -- Emotional breakdown
-    RadioLine.new("Now it is quiet, except for the groans.",255, 204, 0),
-    RadioLine.new("If anyone is out there, do not come here.",255, 204, 0),
-    RadioLine.new("But if you have got a spare bullet... maybe I would take it.",255, 204, 0), -- Emotional despair
-    RadioLine.new("As you might be judging by now, I deserve it...",255, 204, 0),
-    RadioLine.new("There is no more value in me...",255, 204, 0), -- Final despair
-    RadioLine.new("Over.",255, 204, 0)
+    local complexMessages = {
+    { -- Message 1: A Survivor’s Regret
+        RadioLine.new("My name is Daniel.", 200, 200, 200), -- Padrão
+        RadioLine.new("I have been hiding in the attic of a house off Route 42 for... God, I do not even know how long.", 200, 200, 200), -- Padrão
+        RadioLine.new("There is a family downstairs - well, what is left of them.", 200, 200, 200), -- Padrão
+        RadioLine.new("I could have helped.", 150, 150, 150), -- Emocional: culpa
+        RadioLine.new("...", 150, 150, 150), -- Silêncio emocional
+        RadioLine.new("<bzzt>", 50, 50, 50), -- Interferência
+        RadioLine.new("I heard them screaming two nights ago, clawing at the door I barricaded.", 150, 150, 150), -- Emocional: trauma
+        RadioLine.new("I just... froze.", 150, 150, 150), -- Emocional: paralisia
+        RadioLine.new("WHAT COULD I HAVE POSSIBLY DONE? [...]", 100, 100, 100), -- Emocional: colapso
+        RadioLine.new("Now it is quiet, except for the groans.", 150, 150, 150), -- Emocional: reflexão
+        RadioLine.new("If anyone is out there, do not come here.", 200, 200, 200), -- Padrão: aviso
+        RadioLine.new("But if you have got a spare bullet... maybe I would take it.", 100, 100, 100), -- Emocional: desespero
+        RadioLine.new("As you might be judging by now, I deserve it...", 100, 100, 100), -- Emocional: autojulgamento
+        RadioLine.new("There is no more value in me...", 100, 100, 100), -- Emocional: desespero final
+        RadioLine.new("Over.", 200, 200, 200) -- Padrão: fechamento
     },
     { -- Message 2: A Parent’s Plea
-    RadioLine.new("This is Maria, broadcasting from somewhere near Rosewood.",255, 204, 0),
-    RadioLine.new("I probably should not say exactly where we are...",255, 204, 0),
-    RadioLine.new("But... I... We... But...",255, 204, 0),
-    RadioLine.new("I have got my little girl with me, Sofia. She is six years old.",255, 204, 0),
-    RadioLine.new("We are running low on everything - food, water, hope.",255, 204, 0), -- Emotional vulnerability
-    RadioLine.new("The pharmacy on Main Street has been picked clean, and the dead are everywhere.",255, 204, 0),
-    RadioLine.new("If you have got a safe place, please, we will do anything.",255, 204, 0), -- Emotional plea
-    RadioLine.new("She is all I have left.",255, 204, 0), -- Emotional weight
-    RadioLine.new("THANKS GOD... FINALLY, COPY.",255, 204, 0), 
-    RadioLine.new("Its...",255, 204, 0),
-    RadioLine.new("<bzzt>",255, 204, 0), 
-    RadioLine.new("Its horrible, they surrounded our house",255, 204, 0),
-    RadioLine.new("I am trying to, but they somehow got a way in all of my neighbors houses...",255, 204, 0),
-    RadioLine.new("<bzzt>", 255, 204, 0),
-    RadioLine.new("<fzzt>", 255, 204, 0),
-    RadioLine.new("Hey, where are you?",255, 204, 0),
-    RadioLine.new("<bzzt>", 255, 204, 0),
-    RadioLine.new("Please, dont leave us...",255, 204, 0)
+        RadioLine.new("This is Maria, broadcasting from somewhere near Rosewood.", 200, 200, 200), -- Padrão
+        RadioLine.new("I probably should not say exactly where we are...", 200, 200, 200), -- Padrão
+        RadioLine.new("But... I... We... But...", 150, 150, 150), -- Emocional: hesitação
+        RadioLine.new("I have got my little girl with me, Sofia. She is six years old.", 150, 150, 150), -- Emocional: vulnerabilidade
+        RadioLine.new("We are running low on everything - food, water, hope.", 150, 150, 150), -- Emocional: desespero
+        RadioLine.new("The pharmacy on Main Street has been picked clean, and the dead are everywhere.", 150, 150, 150), -- Emocional: urgência
+        RadioLine.new("If you have got a safe place, please, we will do anything.", 100, 100, 100), -- Emocional: súplica
+        RadioLine.new("She is all I have left.", 100, 100, 100), -- Emocional: peso emocional
+        RadioLine.new("THANKS GOD... FINALLY, COPY.", 100, 100, 100), -- Emocional: alívio momentâneo
+        RadioLine.new("Its...", 150, 150, 150), -- Emocional: interrupção
+        RadioLine.new("<bzzt>", 50, 50, 50), -- Interferência
+        RadioLine.new("Its horrible, they surrounded our house", 100, 100, 100), -- Emocional: pânico
+        RadioLine.new("I am trying to, but they somehow got a way in all of my neighbors houses...", 100, 100, 100), -- Emocional: desespero
+        RadioLine.new("<bzzt>", 50, 50, 50), -- Interferência
+        RadioLine.new("<fzzt>", 50, 50, 50), -- Interferência
+        RadioLine.new("Hey, where are you?", 100, 100, 100), -- Emocional: súplica
+        RadioLine.new("<bzzt>", 50, 50, 50), -- Interferência
+        RadioLine.new("Please, dont leave us...", 100, 100, 100) -- Emocional: desespero final
     }
 }
 
