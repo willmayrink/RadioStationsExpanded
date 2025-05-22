@@ -9,41 +9,9 @@ table.insert(DynamicRadio.channels, {
     category = "Survivor", -- Maps to ChannelCategory.Other
     uuid = "SURV-001",
     register = true,
-    airCounterMultiplier = 1.0
+    airCounterMultiplier = 1.1
 })
 
-table.insert(DynamicRadio.channels, {
-    name = "Apocalypse Updates",
-    freq = 89000, -- 89.0 MHz
-    category = "Survivor", -- Maps to ChannelCategory.Other
-    uuid = "SURV-002",
-    register = true,
-    airCounterMultiplier = 2.0
-})
-
-local triggeringMessages = 
-                            {'WHAT COULD I HAVE POSSIBLY DONE? [...]','You could have saved them, that is what we are supposed to do...',
-                            'She is all I have left.','Hey, do you copy?',
-                            'THANKS GOD... FINALLY, COPY.', 'How is your situation?',
-                            'Its horrible, they surrounded our house','Dammit, do you have anywhere else to shelter?',
-                            'I am trying to, but they somehow got a way in all of my neighbors houses...','<fzzt>',
-                            'Hey, where are you?','<bzzt>',
-                            'Please, dont leave us...',' I am sorry... good luck...'
-                            }
-                            
-local function NPCAnswer(waveSignal)
-    local sayLine = waveSignal:getSayLine()
-    if not sayLine then
-        print("Error: getSayLine returned nil")
-        return
-    end
-    for i = 1, #triggeringMessages, 2 do
-        if sayLine == triggeringMessages[i] then
-            waveSignal:AddDeviceText(triggeringMessages[i + 1], 175, 175, 175, nil, nil, 0)
-            break -- Exit loop after finding a match
-        end
-    end
-end
 local function verifyRadio()
     -- Get the player and their coordinates
     local player = getPlayer()
@@ -72,10 +40,11 @@ local function verifyRadio()
                         -- Call HasPlayerInRange() to check if the player is in range
                         local deviceData = obj:getDeviceData()
                         if obj:HasPlayerInRange() and deviceData:getIsTurnedOn() then
+                            if obj:getSayLine() then
                             print("Line text: " .. obj:getSayLine())
                             print("On frequency: " .. deviceData:getChannel() .. " MhZ")
                             print("Paying on: " .. deviceData:getDeviceName())
-                                NPCAnswer(obj)
+                            end
                         end
                     end
                 end
@@ -107,7 +76,7 @@ local function createSurvivorTalesBroadcast()
         RadioLine.new("But if you have got a spare bullet... maybe I would take it.", 100, 100, 100), -- Emocional: desespero
         RadioLine.new("As you might be judging by now, I deserve it...", 100, 100, 100), -- Emocional: autojulgamento
         RadioLine.new("There is no more value in me...", 100, 100, 100), -- Emocional: desespero final
-        RadioLine.new("Over.", 200, 200, 200) -- Padrão: fechamento
+        RadioLine.new("Over.", 200, 200, 200) -- assaultrifledistant8
     },
     { -- Message 2: A Parent’s Plea
         RadioLine.new("This is Maria, broadcasting from somewhere near Rosewood.", 200, 200, 200), -- Padrão
@@ -127,7 +96,19 @@ local function createSurvivorTalesBroadcast()
         RadioLine.new("<fzzt>", 50, 50, 50), -- Interferência
         RadioLine.new("Hey, where are you?", 100, 100, 100), -- Emocional: súplica
         RadioLine.new("<bzzt>", 50, 50, 50), -- Interferência
-        RadioLine.new("Please, dont leave us...", 100, 100, 100) -- Emocional: desespero final
+        RadioLine.new("Please, dont leave us...", 100, 100, 100) -- distscream4
+    },
+    { --Info about assets
+        RadioLine.new("I am not going to say who I am", 150, 150, 150),
+        RadioLine.new("But I will give out some information that might help you", 150, 150, 150),
+        RadioLine.new("<bzzt>", 50, 50, 50),
+        RadioLine.new("There are valuable assets on a specific region", 150, 150, 150),
+        RadioLine.new("<fzzt>", 50, 50, 50),
+        RadioLine.new("Check out this coords", 150, 150, 150),
+        RadioLine.new("<bzzt>", 50, 50, 50),
+        RadioLine.new("Longitude 10089", 150,150,150),
+        RadioLine.new("<fzzt>", 50, 50, 50),
+        RadioLine.new("Latitude 8245", 150, 150, 150)
     }
 }
 
@@ -141,7 +122,6 @@ local function createSurvivorTalesBroadcast()
     for _, line in ipairs(AiredMessage) do
         bc:AddRadioLine(line)
         survChannel:setAiringBroadcast(bc)
-
     end
 
     print("RadioStationsExpanded: Survivor Tales broadcast created")
@@ -151,17 +131,46 @@ end
 local function scheduleBroadcasts()
     createSurvivorTalesBroadcast()
 end
+local function verifyEquipedRadio()
+    local player = getPlayer()
+    local radio = player:getEquipedRadio()
+    local cell = player:getCell()
+    local waveSignal = IsoWaveSignal.new(cell)
+    waveSignal:setDeviceData(radioDeviceData)
+                            
+        if radio then
+            print("There's a radio equipped!")
+            local radioDeviceData = radio:getDeviceData()
+            if radioDeviceData then
+                if radioDeviceData:getIsTurnedOn() then
+                    print("The radio is turned on!")
+                    if radioDeviceData:isReceivingSignal() then
+                        print("We have signal!")
+                        if cell then
+                            print("We have a cell, finally!")
+                            if waveSignal then
+                                waveSignal:update()
+                                print("We have waveSignal!!!")
+                            end
+                        end
+                    end
+                else
+                    print("The radio is turned off!")
+                end
+            end
+        else
+            print ("No radio equipped")
+        end
+end
+
 -- Add to DynamicRadio.scripts for custom hourly updates (optional)
 DynamicRadio.scripts[#DynamicRadio.scripts + 1] = {
     channelUUID = "SURV-001",
     OnEveryHour = createSurvivorTalesBroadcast
 }
-DynamicRadio.scripts[#DynamicRadio.scripts + 1] = {
-    channelUUID = "APOC-002",
-    OnEveryHour = createApocalypseUpdatesBroadcast
-}
 
 -- Hook into the EveryHours event
 Events.EveryHours.Add(scheduleBroadcasts)
 Events.OnDeviceText.Add(verifyRadio)
+Events.OnDeviceText.Add(verifyEquipedRadio)
 
