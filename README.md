@@ -1,7 +1,8 @@
 # Radio Stations Expanded 📡🧟
 
-![Radio Waves](images/radio_waves.png)  
-![Zombie Survival](images/zombie_survival.png)  
+![](images/snippet2.png)
+
+![](images/snippet1.png) 
 
 > [!NOTE]  
 > Tune in for **survival and stories**! This mod brings custom radio broadcasts to life with a chance for loot.
@@ -49,8 +50,9 @@ Released under the MIT License. See [LICENSE](LICENSE) for details.
 
 # Estações de Rádio Expandidas 📡🧟
 
-![Ondas de Rádio](images/radio_waves.png)  
-![Sobrevivência Zumbi](images/zombie_survival.png)  
+![](images/snippet2.png)
+
+![](images/snippet1.png)  
 
 > [!NOTE]  
 > Sintonize para **sobrevivência e histórias**! Este mod dá vida a transmissões de rádio personalizadas com chance de saque.
