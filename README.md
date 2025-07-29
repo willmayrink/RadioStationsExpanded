@@ -44,7 +44,7 @@ Love the mod? Help make it better!
 Spot something off? Got a wild idea? Drop it on the [GitHub Issues](https://github.com/yourusername/radio-stations-expanded/issues) page.  
 
 ## License 📜
-Released under the MIT License. See [LICENSE](LICENSE) for details.  
+Released under the GPL 3 License. See [LICENSE](LICENSE) for details. 
 
 ---
 
@@ -94,4 +94,4 @@ Gostou do mod? Ajude a melhorá-lo!
 Viu algo estranho? Tem uma ideia genial? Registre na página de [Issues do GitHub](https://github.com/yourusername/radio-stations-expanded/issues).  
 
 ## Licença 📜
-Lançado sob a Licença MIT. Veja [LICENSE](LICENSE) para detalhes.
+Lançado sob a Licença GPL 3. Veja [LICENSE](LICENSE) para detalhes.
