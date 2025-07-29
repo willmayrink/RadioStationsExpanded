@@ -20,17 +20,22 @@ local hearingMessage = RadioStationsExpanded.currentMessage
 
 local function createSpawns(_airedMessage)
     local messageSpawn = _airedMessage
-    if messageSpawn then
-        local square = getWorld():getCell():getSquare(messageSpawn.coordinates)
-        for _, itemsToSpawn in ipairs(messageSpawn.spawnedItems) do
-            square:AddWorldInventoryItem(itemsToSpawn, 0.5, 0.5, 0, 1)
-            print("An Item was spawned: " .. itemsToSpawn .. "at location - X: " .. messageSpawn.coordinates[1] ..
-                      " Y: " .. messageSpawn.coordinates[2])
+    if messageSpawn and messageSpawn.coordinates and messageSpawn.spawnedItems then
+        local square = getWorld():getCell():getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+        if square then
+            for _, itemId in ipairs(messageSpawn.spawnedItems) do
+                local item = InventoryItemFactory.CreateItem(itemId)
+                if item then
+                    square:AddWorldInventoryItem(item, math.random(), math.random(), 0)
+                    print("An Item was spawned: " .. itemId .. " at location - X: " .. messageSpawn.coordinates.x ..
+                          " Y: " .. messageSpawn.coordinates.y)
+                end
+            end
+        else
+            print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
         end
-        messageSpawn.triggeringSpawns = false
     else
         print("There were no items to be spawned... nO lOoT 4 LOosERs.")
-        return
     end
 end
 
@@ -41,8 +46,6 @@ local function verifyRadioMessage()
         end
     end
 end
-
-
 
 local function playMessage()
     local radioChannel = DynamicRadio.cache["SURV-001"]
@@ -66,7 +69,6 @@ local function playMessage()
     end
     radioChannel:setAiringBroadcast(broadCast)
 end
-
 
 local function scheduledBroadcast()
     local daytime = GameTime():getHour()
