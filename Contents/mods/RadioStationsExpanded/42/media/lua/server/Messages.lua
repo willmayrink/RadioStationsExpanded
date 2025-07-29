@@ -68,8 +68,6 @@ local complexMessages = {
             RadioLine.new("*loud gunfire*", 50, 50, 50)
         }
     },
-    
-    -- Loot Messages (20%) - Survivors Giving Directions
     {
         messageKey = 5,
         triggeringSpawns = true,
@@ -77,12 +75,10 @@ local complexMessages = {
         spawnedItems = {"Base.Hammer", "Base.Axe"},
         coordinates = { x = 8066, y = 11722, z = 0 },
         lines = {
-            RadioLine.new("I’m Lila, a sculptor gone rogue...", 150, 150, 150),
-            RadioLine.new("Smashed my way out, left my hammer and axe.", 150, 150, 150),
-            RadioLine.new("Seek them at X...8066, Y...11722.", 150, 150, 150),
-            RadioLine.new("Carve your survival!", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("They’re yours now—go!", 150, 150, 150)
+            RadioLine.new("Fled a mob, dropped my hammer and axe.", 150, 150, 150),
+            RadioLine.new("Find them at X...8066, Y...11722.", 150, 150, 150),
+            RadioLine.new("Use them to fight back!", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50)
         }
     },
     {
@@ -92,12 +88,11 @@ local complexMessages = {
         spawnedItems = {"Base.Bag_HydrationBackpack", "Base.Bag_Satchel_Medical"},
         coordinates = { x = 8500, y = 11800, z = 0 },
         lines = {
-            RadioLine.new("I’m Rajiv, a nomad with a limp...", 150, 150, 150),
-            RadioLine.new("Dropped my hydration pack and med satchel mid-flight.", 150, 150, 150),
+            RadioLine.new("I’m Rajiv, a nomad—lost my packs escaping.", 150, 150, 150),
             RadioLine.new("They’re at X...8500, Y...11800.", 150, 150, 150),
-            RadioLine.new("Snatch them before the crows do!", 150, 150, 150),
+            RadioLine.new("Hydration and med satchel—take them!", 150, 150, 150),
             RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Run, friend!", 150, 150, 150)
+            RadioLine.new("Run before they’re gone!", 150, 150, 150)
         }
     },
     {
@@ -107,12 +102,11 @@ local complexMessages = {
         spawnedItems = {"Base.BookCooking1", "Base.Map_Riverside"},
         coordinates = { x = 8066, y = 11722, z = 0 },
         lines = {
-            RadioLine.new("I’m Clara, a storyteller on the run...", 150, 150, 150),
-            RadioLine.new("Lost my cookbook and a map in a sprint.", 150, 150, 150),
-            RadioLine.new("Find them at X...8066, Y...11722.", 150, 150, 150),
-            RadioLine.new("Cook and navigate your way out!", 150, 150, 150),
+            RadioLine.new("Clara here—left my cookbook and map behind.", 150, 150, 150),
+            RadioLine.new("X...8066, Y...11722 is where they lie.", 150, 150, 150),
+            RadioLine.new("Cook and navigate to survive!", 150, 150, 150),
             RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Take my legacy!", 150, 150, 150)
+            RadioLine.new("My gift to you.", 150, 150, 150)
         }
     },
     {
@@ -122,12 +116,10 @@ local complexMessages = {
         spawnedItems = {"Base.Necklace_YinYang", "Base.Hat_SantaHat"},
         coordinates = { x = 8500, y = 11800, z = 0 },
         lines = {
-            RadioLine.new("I’m Elias, a monk turned wanderer...", 150, 150, 150),
-            RadioLine.new("Abandoned my yin-yang necklace and Santa hat.", 150, 150, 150),
-            RadioLine.new("They’re at X...8500, Y...11800.", 150, 150, 150),
-            RadioLine.new("Wear them for luck or laughs!", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Peace be with you.", 150, 150, 150)
+            RadioLine.new("Abandoned a necklace and Santa hat in panic.", 150, 150, 150),
+            RadioLine.new("Look at X...8500, Y...11800.", 150, 150, 150),
+            RadioLine.new("Wear them for luck or spirit!", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50)
         }
     },
     {
@@ -137,12 +129,12 @@ local complexMessages = {
         spawnedItems = {"Base.Saw", "Base.Crowbar"},
         coordinates = { x = 8066, y = 11722, z = 0 },
         lines = {
-            RadioLine.new("I’m Theo, a tinkerer with no time...", 150, 150, 150),
-            RadioLine.new("Tossed my saw and crowbar to distract them.", 150, 150, 150),
-            RadioLine.new("Look at X...8066, Y...11722.", 150, 150, 150),
-            RadioLine.new("Pry open your future!", 150, 150, 150),
+            RadioLine.new("Theo, tinkerer—tossed my saw and crowbar.", 150, 150, 150),
+            RadioLine.new("They’re at X...8066, Y...11722.", 150, 150, 150),
+            RadioLine.new("Pry open a new life!", 150, 150, 150),
             RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Hurry up!", 150, 150, 150)
+            RadioLine.new("Hurry, they’re waiting!", 150, 150, 150),
+            RadioLine.new("Go now!", 150, 150, 150)
         }
     },
     {
@@ -152,16 +144,15 @@ local complexMessages = {
         spawnedItems = {"Base.Bag_GolfBag", "Base.Bag_PicnicBasket"},
         coordinates = { x = 8500, y = 11800, z = 0 },
         lines = {
-            RadioLine.new("I’m Nadia, a caddy with a twist...", 150, 150, 150),
-            RadioLine.new("Left my golf bag and picnic basket behind.", 150, 150, 150),
-            RadioLine.new("They’re at X...8500, Y...11800.", 150, 150, 150),
-            RadioLine.new("Swing or snack your way out!", 150, 150, 150),
+            RadioLine.new("Nadia, caddy—left my golf bag and basket.", 150, 150, 150),
+            RadioLine.new("Find them at X...8500, Y...11800.", 150, 150, 150),
+            RadioLine.new("Swing or snack to survive!", 150, 150, 150),
             RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Go get ‘em!", 150, 150, 150)
+            RadioLine.new("They’re yours—take care!", 150, 150, 150)
         }
     },
 
-    -- No-Loot Messages (80%) - Vague, Short Storytelling (Up to 8 Lines)
+    -- No-Loot Messages (80%) - Vague, Short Storytelling (3-8 Lines)
     {
         messageKey = 11,
         triggeringSpawns = false,
@@ -169,12 +160,9 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Kofi, a drummer...", 150, 150, 150),
+            RadioLine.new("Wind whispers through empty streets...", 150, 150, 150),
             RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Beats echo in my head...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("No sticks left...", 150, 150, 150),
-            RadioLine.new("Just rhythm.", 50, 50, 50)
+            RadioLine.new("A faint hum lingers.", 150, 150, 150)
         }
     },
     {
@@ -184,12 +172,10 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Hana, a gardener...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Planted roses once...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I grow hope...", 150, 150, 150),
-            RadioLine.new("In dirt.", 50, 50, 50)
+            RadioLine.new("Once danced under moonlight...", 150, 150, 150),
+            RadioLine.new("Now shadows chase me.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Steps fade away.", 150, 150, 150)
         }
     },
     {
@@ -199,12 +185,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Javier, a barber...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Shaved heads daily...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now my mirror’s cracked...", 150, 150, 150),
-            RadioLine.new("Wild hair!", 50, 50, 50)
+            RadioLine.new("Heard a bird sing today...", 150, 150, 150),
+            RadioLine.new("First in months.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Clung to that sound...", 150, 150, 150),
+            RadioLine.new("Like hope.", 150, 150, 150),
+            RadioLine.new("Gone now.", 50, 50, 50)
         }
     },
     {
@@ -214,12 +200,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Zoya, a librarian...", 150, 150, 150),
+            RadioLine.new("Saw a tree still green...", 150, 150, 150),
             RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Cataloged books for years...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I read ashes...", 150, 150, 150),
-            RadioLine.new("Silent pages.", 50, 50, 50)
+            RadioLine.new("Touched its leaves...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Felt alive again.", 150, 150, 150),
+            RadioLine.new("Briefly.", 50, 50, 50)
         }
     },
     {
@@ -229,12 +215,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Finn, a juggler...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Tossed balls in the air...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I dodge teeth...", 150, 150, 150),
-            RadioLine.new("Clumsy days.", 50, 50, 50)
+            RadioLine.new("A zombie shuffled by...", 150, 150, 150),
+            RadioLine.new("Wearing a chef’s hat!", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Stirring an imaginary pot...", 150, 150, 150),
+            RadioLine.new("Laughed till I cried.", 150, 150, 150),
+            RadioLine.new("Odd relief.", 50, 50, 50)
         }
     },
     {
@@ -244,12 +230,10 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Leila, a tailor...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Sewed dresses with love...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I patch wounds...", 150, 150, 150),
-            RadioLine.new("With thread.", 50, 50, 50)
+            RadioLine.new("Built a fire last night...", 150, 150, 150),
+            RadioLine.new("Watched sparks rise...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Dreamed of home.", 150, 150, 150)
         }
     },
     {
@@ -259,12 +243,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Amos, a clockmaker...", 150, 150, 150),
+            RadioLine.new("Found an old shoe...", 150, 150, 150),
             RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Timed every tick...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I count heartbeats...", 150, 150, 150),
-            RadioLine.new("Slowing.", 50, 50, 50)
+            RadioLine.new("Wore it anyway.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Feels like armor.", 150, 150, 150),
+            RadioLine.new("Silly, but true.", 50, 50, 50)
         }
     },
     {
@@ -274,12 +258,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Priya, a dancer...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Twirled on stages...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I step over bones...", 150, 150, 150),
-            RadioLine.new("Grace gone.", 50, 50, 50)
+            RadioLine.new("Rain fell soft today...", 150, 150, 150),
+            RadioLine.new("Caught it in my hands...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Tasted life again...", 150, 150, 150),
+            RadioLine.new("Briefly.", 150, 150, 150),
+            RadioLine.new("Then it stopped.", 50, 50, 50)
         }
     },
     {
@@ -289,12 +273,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Otto, a brewer...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Crafted ales for cheers...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I sip dew...", 150, 150, 150),
-            RadioLine.new("Bitter taste.", 50, 50, 50)
+            RadioLine.new("A zombie limped past...", 150, 150, 150),
+            RadioLine.new("Looked like Paula Abdul!", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Doing ‘Opposites Attract’ moves...", 150, 150, 150),
+            RadioLine.new("Choked on a laugh...", 150, 150, 150),
+            RadioLine.new("Surreal day.", 50, 50, 50)
         }
     },
     {
@@ -304,12 +288,10 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Selma, a poet...", 150, 150, 150),
+            RadioLine.new("Heard a distant laugh...", 150, 150, 150),
             RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Wrote verses of love...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I rhyme survival...", 150, 150, 150),
-            RadioLine.new("In whispers.", 50, 50, 50)
+            RadioLine.new("Wondered if I’m mad.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50)
         }
     },
     {
@@ -319,12 +301,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Yuri, a chess player...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Outsmarted opponents...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I plan moves...", 150, 150, 150),
-            RadioLine.new("Against death.", 50, 50, 50)
+            RadioLine.new("Painted a wall red...", 150, 150, 150),
+            RadioLine.new("With berry juice.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Feels like art...", 150, 150, 150),
+            RadioLine.new("Or a warning.", 150, 150, 150),
+            RadioLine.new("Who knows?", 50, 50, 50)
         }
     },
     {
@@ -334,12 +316,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Mira, a glassblower...", 150, 150, 150),
+            RadioLine.new("Saw a dog yesterday...", 150, 150, 150),
             RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Shaped beauty from heat...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I melt fear...", 150, 150, 150),
-            RadioLine.new("With breath.", 50, 50, 50)
+            RadioLine.new("Tail wagged at me.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Chased it, but...", 150, 150, 150),
+            RadioLine.new("Gone now.", 50, 50, 50)
         }
     },
     {
@@ -349,13 +331,13 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Bruno, a hiker...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Spotted a zombie today...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Looked like Vanilla Ice!", 150, 150, 150),
-            RadioLine.new("Rapping ‘Ice Ice Baby’...", 150, 150, 150),
-            RadioLine.new("Cracked me up!", 50, 50, 50)
+            RadioLine.new("A zombie staggered...", 150, 150, 150),
+            RadioLine.new("Looked like Salt-N-Pepa!", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Rapping ‘Push It’...", 150, 150, 150),
+            RadioLine.new("Nearly fell laughing...", 150, 150, 150),
+            RadioLine.new("Wild world!", 50, 50, 50),
+            RadioLine.new("Still grinning.", 150, 150, 150)
         }
     },
     {
@@ -365,13 +347,11 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Lila, a cashier...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Saw a ghoul yesterday...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Looked like MC Hammer!", 150, 150, 150),
-            RadioLine.new("Can’t touch this pose...", 150, 150, 150),
-            RadioLine.new("Hilarious chaos!", 50, 50, 50)
+            RadioLine.new("Found a cracked mirror...", 150, 150, 150),
+            RadioLine.new("Stared at my face.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Saw a stranger...", 150, 150, 150),
+            RadioLine.new("Not me anymore.", 150, 150, 150)
         }
     },
     {
@@ -381,12 +361,12 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Kai, a surfer...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Caught a wave once...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I ride rooftops...", 150, 150, 150),
-            RadioLine.new("For safety.", 50, 50, 50)
+            RadioLine.new("Whistled a tune...", 150, 150, 150),
+            RadioLine.new("Old song from youth.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Echoed back...", 150, 150, 150),
+            RadioLine.new("Felt alive.", 150, 150, 150),
+            RadioLine.new("For a moment.", 50, 50, 50)
         }
     },
     {
@@ -396,12 +376,13 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Petra, a jeweler...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Crafted rings of gold...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I polish memories...", 150, 150, 150),
-            RadioLine.new("In silence.", 50, 50, 50)
+            RadioLine.new("A zombie lurched...", 150, 150, 150),
+            RadioLine.new("Looked like En Vogue!", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Harmonizing ‘Free Your Mind’...", 150, 150, 150),
+            RadioLine.new("Laughed so hard...", 150, 150, 150),
+            RadioLine.new("Absurd beauty.", 50, 50, 50),
+            RadioLine.new("Still smiling.", 150, 150, 150)
         }
     },
     {
@@ -411,12 +392,10 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Soren, a blacksmith...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Forged steel daily...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I hammer hope...", 150, 150, 150),
-            RadioLine.new("With words.", 50, 50, 50)
+            RadioLine.new("Climbed a hill...", 150, 150, 150),
+            RadioLine.new("Saw the horizon.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Dreamed of tomorrow...", 150, 150, 150)
         }
     },
     {
@@ -426,12 +405,11 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Uma, a astronomer...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Stared at stars nightly...", 150, 150, 150),
-            RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I track constellations...", 150, 150, 150),
-            RadioLine.new("For guidance.", 50, 50, 50)
+            RadioLine.new("Heard a creak...", 150, 150, 150),
+            RadioLine.new("Old house groaning.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Felt like company...", 150, 150, 150),
+            RadioLine.new("Lonely friend.", 150, 150, 150)
         }
     },
     {
@@ -441,12 +419,13 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Tasha, a clown...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Made kids laugh once...", 150, 150, 150),
-            RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Now I juggle survival...", 150, 150, 150),
-            RadioLine.new("With tears.", 50, 50, 50)
+            RadioLine.new("Saw a kite stuck...", 150, 150, 150),
+            RadioLine.new("In a dead tree.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Thought of kids...", 150, 150, 150),
+            RadioLine.new("Flying high once.", 150, 150, 150),
+            RadioLine.new("Tears fell.", 50, 50, 50),
+            RadioLine.new("Quiet now.", 150, 150, 150)
         }
     },
     {
@@ -456,13 +435,74 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("I’m Vikram, a potter...", 150, 150, 150),
-            RadioLine.new("...", 150, 150, 150),
-            RadioLine.new("Shaped clay with care...", 150, 150, 150),
+            RadioLine.new("Smelled rain coming...", 150, 150, 150),
+            RadioLine.new("Rushed to catch it.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Slipped in mud...", 150, 150, 150),
+            RadioLine.new("Laughed at myself.", 150, 150, 150)
+        }
+    },
+    {
+        messageKey = 31,
+        triggeringSpawns = false,
+        spawnsGroup = nil,
+        coordinates = nil,
+        spawnedItems = nil,
+        lines = {
+            RadioLine.new("A zombie shuffled...", 150, 150, 150),
+            RadioLine.new("Looked like Aaliyah!", 150, 150, 150),
             RadioLine.new("<fzzt>", 50, 50, 50),
-            RadioLine.new("Now I mold courage...", 150, 150, 150),
-            RadioLine.new("From mud.", 50, 50, 50)
+            RadioLine.new("Floating like ‘Try Again’...", 150, 150, 150),
+            RadioLine.new("Grinned through fear...", 150, 150, 150),
+            RadioLine.new("Eerie charm.", 50, 50, 50),
+            RadioLine.new("Still here.", 150, 150, 150)
+        }
+    },
+    {
+        messageKey = 32,
+        triggeringSpawns = false,
+        spawnsGroup = nil,
+        coordinates = nil,
+        spawnedItems = nil,
+        lines = {
+            RadioLine.new("Found a button...", 150, 150, 150),
+            RadioLine.new("From an old coat.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Held it tight...", 150, 150, 150),
+            RadioLine.new("Like a talisman.", 150, 150, 150)
+        }
+    },
+    {
+        messageKey = 33,
+        triggeringSpawns = false,
+        spawnsGroup = nil,
+        coordinates = nil,
+        spawnedItems = nil,
+        lines = {
+            RadioLine.new("Watched clouds drift...", 150, 150, 150),
+            RadioLine.new("Shaped like faces.", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Imagined voices...", 150, 150, 150),
+            RadioLine.new("Calling me home.", 150, 150, 150),
+            RadioLine.new("Faded away.", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 34,
+        triggeringSpawns = false,
+        spawnsGroup = nil,
+        coordinates = nil,
+        spawnedItems = nil,
+        lines = {
+            RadioLine.new("Heard a crack...", 150, 150, 150),
+            RadioLine.new("Tree falling nearby.", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Ran toward it...", 150, 150, 150),
+            RadioLine.new("Found shelter.", 150, 150, 150),
+            RadioLine.new("Safe for now.", 50, 50, 50),
+            RadioLine.new("Breathing easy.", 150, 150, 150)
         }
     }
 }
+
 return complexMessages
