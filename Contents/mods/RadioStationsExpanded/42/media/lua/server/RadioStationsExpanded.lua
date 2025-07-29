@@ -3,6 +3,7 @@ local RadioStationsExpanded = RadioStationsExpanded or {}
 RadioStationsExpanded.currentMessage = nil -- Store the currently airing message
 
 -- Load messages from Messages.lua
+local complexMessages = require("Messages")
 
 -- Add custom channels to DynamicRadio.channels
 DynamicRadio.channels = DynamicRadio.channels or {} -- Preserve existing channels
