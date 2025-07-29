@@ -3,6 +3,7 @@ local complexMessages = {
         messageKey = 1,
         triggeringSpawns = true,
         spawnsGroup = "guns",
+        spawnedItems = {"Base.AssaultRifle", "Base.Pistol3"},
         coordinates = { x = 8066, y = 11722, z = 0 }, -- Rosewood police armory
         lines = {
             RadioLine.new("I am not going to say who I am", 150, 150, 150),
@@ -24,6 +25,7 @@ local complexMessages = {
         triggeringSpawns = false,
         spawnsGroup = nil,
         coordinates = nil,
+        spawnedItems = nil,
         lines = {
             RadioLine.new("This is a test broadcast", 150, 150, 150),
             RadioLine.new("No valuable assets here", 150, 150, 150),
@@ -34,6 +36,7 @@ local complexMessages = {
         messageKey = 3,
         triggeringSpawns = true,
         spawnsGroup = "medical",
+        spawnedItems = {"Base.Painkiller", "Base.Bandage"},
         coordinates = { x = 8500, y = 11800, z = 0 }, -- Example coordinates
         lines = {
             RadioLine.new("Survivors, listen up!", 150, 150, 150),
@@ -49,6 +52,7 @@ local complexMessages = {
         messageKey = 4,
         triggeringSpawns = true,
         spawnsGroup = "guns",
+        spawnedItems = {"Base.AssaultRifle", "Base.Pistol3","Base.Shotgun"},
         coordinates = {x = 8600, y = 11200, z = 0},
         lines = {
             RadioLine.new("What a shame...", 150, 150, 150),
