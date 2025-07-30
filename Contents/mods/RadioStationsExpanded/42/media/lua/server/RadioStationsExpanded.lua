@@ -21,16 +21,14 @@ local hearingMessage = RadioStationsExpanded.currentMessage
 local function createSpawns(_airedMessage)
     local messageSpawn = _airedMessage
     if messageSpawn and messageSpawn.coordinates and messageSpawn.spawnedItems then
-        local square = getWorld():getCell():getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+        local square = getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
         if square then
             for _, itemId in ipairs(messageSpawn.spawnedItems) do
-                local item = InventoryItemFactory.CreateItem(itemId)
-                if item then
-                    square:AddWorldInventoryItem(item, math.random(), math.random(), 0)
-                    print("An Item was spawned: " .. itemId .. " at location - X: " .. messageSpawn.coordinates.x ..
-                          " Y: " .. messageSpawn.coordinates.y)
+                if square:AddWorldInventoryItem(itemId, 0.5, 0.5, 0) then
+                    print("Spawned item: " .. itemId .. " at coordinates X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
                 end
             end
+            messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
         end
@@ -71,10 +69,7 @@ local function playMessage()
 end
 
 local function scheduledBroadcast()
-    local daytime = GameTime():getHour()
-    if daytime == 10 then
         playMessage()
-    end
 end
 
 Events.EveryHours.Add(scheduledBroadcast)
