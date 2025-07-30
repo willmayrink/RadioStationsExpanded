@@ -13,7 +13,7 @@ table.insert(DynamicRadio.channels, {
     category = "Survivor", -- Maps to ChannelCategory.Other
     uuid = "SURV-001",
     register = true,
-    airCounterMultiplier = 1.1
+    airCounterMultiplier = 1.5
 })
 
 local hearingMessage = RadioStationsExpanded.currentMessage
