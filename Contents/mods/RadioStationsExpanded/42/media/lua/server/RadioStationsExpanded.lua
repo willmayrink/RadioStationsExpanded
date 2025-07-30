@@ -24,8 +24,13 @@ local function createSpawns(_airedMessage)
         local square = getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
         if square then
             for _, itemId in ipairs(messageSpawn.spawnedItems) do
-                if square:AddWorldInventoryItem(itemId, 0.5, 0.5, 0) then
-                    print("Spawned item: " .. itemId .. " at coordinates X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
+                local spotX = math.random()
+                local spotY = math.random()
+                spotX = math.floor(spotX * 10 + 0.5) / 10
+                spotY = math.floor(spotY * 10 + 0.5) / 10
+                if square:AddWorldInventoryItem(itemId, spotX, spotY, 0) then
+                    print("Spawned item: " .. itemId .. " at coordinates X: " .. messageSpawn.coordinates.x .. " Y: " ..
+                              messageSpawn.coordinates.y)
                 end
             end
             messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
@@ -69,7 +74,12 @@ local function playMessage()
 end
 
 local function scheduledBroadcast()
-        playMessage()
+
+    local messageChance = ZombRand(1, 20)
+    local dayTime = math.floor(getGameTime():getHour())
+    if messageChance == 1 and dayTime >= 8 and dayTime <=11  then
+        playMessage()    
+    end
 end
 
 Events.EveryHours.Add(scheduledBroadcast)
