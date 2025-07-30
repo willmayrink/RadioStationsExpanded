@@ -3,6 +3,7 @@ local complexMessages = {
     {
         messageKey = 1,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "guns",
         spawnedItems = {"AssaultRifle","556Clip", "Pistol3","Shotgun","ShotgunShellsBox","ShotgunShells","ShotgunShells","ShotgunShells","ShotgunShells","ShotgunShells","ShotgunShells"},
         coordinates = { x = 8066, y = 11723, z = 0 }, -- Rosewood police armory
@@ -24,6 +25,7 @@ local complexMessages = {
     {
         messageKey = 2,
         triggeringSpawns = false,
+        spawnsCorpses = false,
         spawnsGroup = nil,
         coordinates = nil,
         spawnedItems = nil,
@@ -36,6 +38,7 @@ local complexMessages = {
     {
         messageKey = 3,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "medical",
         spawnedItems = {"Painkiller", "Bandage"},
         coordinates = { x = 9056, y = 12185, z = 0 }, -- Example coordinates
@@ -52,6 +55,7 @@ local complexMessages = {
     {
         messageKey = 4,
         triggeringSpawns = true,
+        spawnsCorpses = true,
         spawnsGroup = "guns",
         spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","CorpseMale"},
         coordinates = {x = 7253, y = 8379, z = 0},
@@ -72,6 +76,7 @@ local complexMessages = {
     {
         messageKey = 5,
         triggeringSpawns = true,
+        spawnsCorpses = true,
         spawnsGroup = "tools",
         spawnedItems = {"Hammer", "Axe"},
         coordinates = { x = 10136, y = 11186, z = 0 },
@@ -89,6 +94,7 @@ local complexMessages = {
     {
         messageKey = 6,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "bags",
         spawnedItems = {"Bag_HydrationBackpack", "Bag_Satchel_Medical"},
         coordinates = { x = 9056, y = 12185, z = 0 },
@@ -103,6 +109,7 @@ local complexMessages = {
     {
         messageKey = 7,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "literature",
         spawnedItems = {"BookCooking1", "Map_Riverside"},
         coordinates = { x = 9056, y = 12185, z = 0 },
@@ -117,6 +124,7 @@ local complexMessages = {
     {
         messageKey = 8,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "mementos",
         spawnedItems = {"Necklace_YinYang", "Hat_SantaHat"},
         coordinates = { x = 9056, y = 12185, z = 0 },
@@ -130,6 +138,7 @@ local complexMessages = {
     {
         messageKey = 9,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "tools",
         spawnedItems = {"Saw", "Crowbar"},
         coordinates = { x = 9056, y = 12185, z = 0 },
@@ -145,6 +154,7 @@ local complexMessages = {
     {
         messageKey = 10,
         triggeringSpawns = true,
+        spawnsCorpses = false,
         spawnsGroup = "bags",
         spawnedItems = {"Bag_GolfBag", "Bag_PicnicBasket"},
         coordinates = { x = 9056, y = 12185, z = 0 },

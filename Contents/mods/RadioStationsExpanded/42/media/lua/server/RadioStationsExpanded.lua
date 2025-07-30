@@ -32,8 +32,15 @@ local function createSpawns(_airedMessage)
                     print("Spawned item: " .. itemId .. " at coordinates X: " .. messageSpawn.coordinates.x .. " Y: " ..
                               messageSpawn.coordinates.y)
                 end
+                
             end
             messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
+            if messageSpawn.spawnsCorpses then
+                    local corpse = IsoDeadBody.new(square)
+                    corpse.setFakeDead(true)
+                    square:addCorpse(corpse, false)
+                    messageSpawn.spawnsCorpses = false
+            end
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
         end
