@@ -30,8 +30,21 @@ local complexMessages = {
         coordinates = nil,
         spawnedItems = nil,
         lines = {
-            RadioLine.new("This is a test broadcast", 150, 150, 150),
-            RadioLine.new("No valuable assets here", 150, 150, 150),
+            RadioLine.new("Hey, is this thing work?...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 150, 150, 150),
+            RadioLine.new("<bzzt>", 150, 150, 150),
+            RadioLine.new("I think it is...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 150, 150, 150),
+            RadioLine.new("To be honest, I dont even know what to say...", 150, 150, 150),
+            RadioLine.new("I heard a guy saying something about the Rosewood situation", 150, 150, 150),
+            RadioLine.new("<fzzt>", 150, 150, 150),
+            RadioLine.new("I used to work there...", 150, 150, 150),
+            RadioLine.new("You know the Auto Shop?... Its close to the Gigamart...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 150, 150, 150),
+            RadioLine.new("Thats how I got to know my girlfriend Lisa, going for a cigarette...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 150, 150, 150),
+            RadioLine.new("*muffled crying sound*", 150, 150, 150),
+            RadioLine.new("Those were good great cigarettes we shared...", 150, 150, 150),
             RadioLine.new("Stay safe out there.", 150, 150, 150)
         }
     },
@@ -41,15 +54,17 @@ local complexMessages = {
         spawnsCorpses = false,
         spawnsGroup = "medical",
         spawnedItems = {"Painkiller", "Bandage"},
-        coordinates = { x = 9056, y = 12185, z = 0 }, -- Example coordinates
+        coordinates = { x = 10748, y = 10560, z = 0 }, -- Example coordinates
         lines = {
-            RadioLine.new("Survivors, listen up!", 150, 150, 150),
-            RadioLine.new("Medical supplies have been spotted.", 150, 150, 150),
+            RadioLine.new("Can somebody help?", 150, 150, 150),
             RadioLine.new("<bzzt>", 50, 50, 50),
-            RadioLine.new("Check these coordinates:", 150, 150, 150),
-            RadioLine.new("X...8500", 150, 150, 150),
-            RadioLine.new("Y...11800", 150, 150, 150),
-            RadioLine.new("Over.", 50, 50, 50)
+            RadioLine.new("I think I left some medical equipment behind...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("It was somewhere around Muldraugh's Tavern...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("My sister really needs it...", 150, 150, 150),
+            RadioLine.new("I'm heading towards the Police Department...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50)
         }
     },
     {
@@ -81,11 +96,11 @@ local complexMessages = {
         spawnedItems = {"Hammer", "Axe"},
         coordinates = { x = 10136, y = 11186, z = 0 },
         lines = {
-            RadioLine.new("Fled a mob, dropped my hammer and axe.", 150, 150, 150),
+            RadioLine.new("Fled a mob, dropped my tools... or you can say weapons.", 150, 150, 150),
             RadioLine.new("Find them close to the cross road...", 150, 150, 150),
             RadioLine.new("<bzzt>", 150, 150, 150),
             RadioLine.new("Going south, from Rosewood to Muldraugh", 150, 150, 150),
-            RadioLine.new("Use them to fight back!", 150, 150, 150),
+            RadioLine.new("You can have both, I wont get back there!", 150, 150, 150),
             RadioLine.new("<fzzt>", 150, 150, 150),
             RadioLine.new("You will definitely need them...", 150, 150, 150),
             RadioLine.new("<bzzt>", 50, 50, 50)

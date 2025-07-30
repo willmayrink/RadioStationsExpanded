@@ -8,8 +8,8 @@ local complexMessages = require("Messages")
 -- Add custom channels to DynamicRadio.channels
 DynamicRadio.channels = DynamicRadio.channels or {} -- Preserve existing channels
 table.insert(DynamicRadio.channels, {
-    name = "Community Radio Frequency",
-    freq = 88000, -- 88.0 MHz
+    name = "KY Simplex Calling",
+    freq = 147900, -- 147.9 MHz
     category = "Survivor", -- Maps to ChannelCategory.Other
     uuid = "SURV-001",
     register = true,
