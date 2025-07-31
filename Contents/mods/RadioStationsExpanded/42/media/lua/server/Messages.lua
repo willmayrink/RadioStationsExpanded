@@ -51,9 +51,9 @@ local complexMessages = {
     {
         messageKey = 3,
         triggeringSpawns = true,
-        spawnsCorpses = false,
+        spawnsCorpses = true,
         spawnsGroup = "medical",
-        spawnedItems = {"Painkiller", "Bandage"},
+        spawnedItems = {"Pills", "Bandage"},
         coordinates = { x = 10748, y = 10560, z = 0 }, -- Example coordinates
         lines = {
             RadioLine.new("Can somebody help?", 150, 150, 150),

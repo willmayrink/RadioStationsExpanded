@@ -9,7 +9,7 @@ local complexMessages = require("Messages")
 DynamicRadio.channels = DynamicRadio.channels or {} -- Preserve existing channels
 table.insert(DynamicRadio.channels, {
     name = "KY Simplex Calling",
-    freq = 147900, -- 147.9 MHz
+    freq = 88000, -- 88.0 MHz
     category = "Survivor", -- Maps to ChannelCategory.Other
     uuid = "SURV-001",
     register = true,
@@ -23,23 +23,22 @@ local function createSpawns(_airedMessage)
     if messageSpawn and messageSpawn.coordinates and messageSpawn.spawnedItems then
         local square = getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
         if square then
+
             for _, itemId in ipairs(messageSpawn.spawnedItems) do
-                local spotX = math.random()
-                local spotY = math.random()
-                spotX = math.floor(spotX * 10 + 0.5) / 10
-                spotY = math.floor(spotY * 10 + 0.5) / 10
+                local spotX = (ZombRand(1, 35)) / 10
+                local spotY = (ZombRand(1, 35)) / 10
+                print("spotX is: " .. spotX) -- Randomize the X coordinate within the square
+                print("spotY is: " .. spotY) -- Randomize the Y coordinate within the square
                 if square:AddWorldInventoryItem(itemId, spotX, spotY, 0) then
                     print("Spawned item: " .. itemId .. " at coordinates X: " .. messageSpawn.coordinates.x .. " Y: " ..
                               messageSpawn.coordinates.y)
                 end
-                
+
             end
             messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
             if messageSpawn.spawnsCorpses then
-                    local corpse = IsoDeadBody.new(square)
-                    corpse.setFakeDead(true)
-                    square:addCorpse(corpse, false)
-                    messageSpawn.spawnsCorpses = false
+                createRandomDeadBody(square,10)
+                -- messageSpawn.spawnsCorpses = false
             end
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
@@ -82,11 +81,11 @@ end
 
 local function scheduledBroadcast()
 
-    local messageChance = ZombRand(1, 20)
-    local dayTime = math.floor(getGameTime():getHour())
-    if messageChance == 1 and dayTime >= 8 and dayTime <=11  then
-        playMessage()    
-    end
+     local messageChance = ZombRand(1, 20)
+     local dayTime = math.floor(getGameTime():getHour())
+     if messageChance == 1 and dayTime >= 8 and dayTime <=11  then
+    playMessage()
+     end
 end
 
 Events.EveryHours.Add(scheduledBroadcast)
