@@ -37,8 +37,9 @@ local function createSpawns(_airedMessage)
             end
             messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
             if messageSpawn.spawnsCorpses then
-                createRandomDeadBody(square,10)
-                -- messageSpawn.spawnsCorpses = false
+                for numberCorpses = 1, messageSpawn.amountCorpses+1, 1 do
+                    createRandomDeadBody(square,10)    
+                end
             end
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)

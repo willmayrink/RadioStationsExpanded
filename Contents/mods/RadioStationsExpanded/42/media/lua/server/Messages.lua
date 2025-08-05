@@ -52,6 +52,7 @@ local complexMessages = {
         messageKey = 3,
         triggeringSpawns = true,
         spawnsCorpses = true,
+        amountCorpses = 2,
         spawnsGroup = "medical",
         spawnedItems = {"Pills", "Bandage"},
         coordinates = { x = 10748, y = 10560, z = 0 }, -- Example coordinates
@@ -71,6 +72,7 @@ local complexMessages = {
         messageKey = 4,
         triggeringSpawns = true,
         spawnsCorpses = true,
+        amountCorpses = 1,
         spawnsGroup = "guns",
         spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","CorpseMale"},
         coordinates = {x = 7253, y = 8379, z = 0},
