@@ -40,6 +40,7 @@ local function createSpawns(_airedMessage)
                 for numberCorpses = 1, messageSpawn.amountCorpses+1, 1 do
                     createRandomDeadBody(square,10)    
                 end
+            messageSpawn.spawnsCorpses = false
             end
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)

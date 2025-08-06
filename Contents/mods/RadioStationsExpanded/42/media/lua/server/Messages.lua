@@ -74,7 +74,7 @@ local complexMessages = {
         spawnsCorpses = true,
         amountCorpses = 1,
         spawnsGroup = "guns",
-        spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","CorpseMale"},
+        spawnedItems = {"AssaultRifle", "Pistol3","Shotgun"},
         coordinates = {x = 7253, y = 8379, z = 0},
         lines = {
             RadioLine.new("What a shame...", 150, 150, 150),
