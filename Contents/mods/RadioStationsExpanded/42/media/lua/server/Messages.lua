@@ -196,7 +196,7 @@ local complexMessages = {
             RadioLine.new("Are you nuts?",150,150,150),
             RadioLine.new("Blake, thats basically all of our resources...",150,150,150),
             RadioLine.new("<bzzt>",150,150,150),
-            RadioLine.new("We got these two cars, dont over react over some leftovers...",150,150,150),
+            RadioLine.new("We got this car, dont over react over some leftovers...",150,150,150),
             RadioLine.new("<fzzt>",150,150,150),
             RadioLine.new("No one will think of looking for it, we can come back after the horde goes away...",150,150,150),
             RadioLine.new("Yes, absolutely nobody would look for anything inside a f*cking Fire Deparment...",150,150,150),
