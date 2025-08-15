@@ -1,4 +1,3 @@
---https://b42map.com?9056x12185
 local complexMessages = {
     {
         messageKey = 1,
@@ -74,7 +73,7 @@ local complexMessages = {
         spawnsCorpses = true,
         amountCorpses = 1,
         spawnsGroup = "guns",
-        spawnedItems = {"AssaultRifle", "Pistol3","Shotgun"},
+        spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","ShotgunShellsBox","Bullets9mm"},
         coordinates = {x = 7253, y = 8379, z = 0},
         lines = {
             RadioLine.new("What a shame...", 150, 150, 150),
@@ -93,7 +92,7 @@ local complexMessages = {
     {
         messageKey = 5,
         triggeringSpawns = true,
-        spawnsCorpses = true,
+        spawnsCorpses = false,
         spawnsGroup = "tools",
         spawnedItems = {"Hammer", "Axe"},
         coordinates = { x = 10136, y = 11186, z = 0 },
@@ -183,6 +182,30 @@ local complexMessages = {
             RadioLine.new("They’re yours—take care!", 150, 150, 150)
         }
     
+    },
+    {
+        messageKey = 11,
+        trigerringSpawns = true,
+        spawnsCorpses = false,
+        spawnsGroup = "food",
+        spawnedItems = {"JuiceOrange","CannedPeaches_Box", "OatsRaw", "TinnedBeans","CannedChilli","CannedFruitCocktail","JuiceGrape"},
+        coordinates = {x = 8137, y = 11739, z = 1},
+        lines = {
+            RadioLine.new("Can't we go back there?",150,150,150),
+            RadioLine.new("<fzzt>",150,150,150),
+            RadioLine.new("Are you nuts?",150,150,150),
+            RadioLine.new("Blake, thats basically all of our resources...",150,150,150),
+            RadioLine.new("<bzzt>",150,150,150),
+            RadioLine.new("We got these two cars, dont over react over some leftovers...",150,150,150),
+            RadioLine.new("<fzzt>",150,150,150),
+            RadioLine.new("No one will think of looking for it, we can come back after the horde goes away...",150,150,150),
+            RadioLine.new("Yes, absolutely nobody would look for anything inside a f*cking Fire Deparment...",150,150,150),
+            RadioLine.new("<fzzt>",150,150,150),
+            RadioLine.new("Why is the 2Way red light on...?",150,150,150),
+            RadioLine.new("<bzzt>",150,150,150),
+            RadioLine.new("Dammit...",150,150,150),
+            RadioLine.new("<fzzt>",150,150,150)
+        }
     }
 }
 
