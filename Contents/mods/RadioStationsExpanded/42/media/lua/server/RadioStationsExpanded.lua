@@ -36,11 +36,18 @@ local function createSpawns(_airedMessage)
 
             end
             messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
+            local zombieChance = ZombRand(1, 10)
             if messageSpawn.spawnsCorpses then
-                for numberCorpses = 1, messageSpawn.amountCorpses+1, 1 do
-                    createRandomDeadBody(square,10)    
+                if zombieChance % 2 == 0 then
+                    local virtualManager = getVirtualZombieManager():createRealZombieNow(messageSpawn.coordinates.x,
+                        messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+                else
+                    for numberCorpses = 1, messageSpawn.amountCorpses + 1, 1 do
+                        createRandomDeadBody(square, 10)
+                    end
+
                 end
-            messageSpawn.spawnsCorpses = false
+                messageSpawn.spawnsCorpses = false
             end
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
@@ -83,11 +90,11 @@ end
 
 local function scheduledBroadcast()
 
-     local messageChance = ZombRand(1, 20)
-     local dayTime = math.floor(getGameTime():getHour())
-     if messageChance == 1 and dayTime >= 8 and dayTime <=11  then
-    playMessage()
-     end
+    local messageChance = ZombRand(1, 20)
+    local dayTime = math.floor(getGameTime():getHour())
+    if messageChance == 1 and dayTime >= 8 and dayTime <= 11 then
+        playMessage()
+    end
 end
 
 Events.EveryHours.Add(scheduledBroadcast)
