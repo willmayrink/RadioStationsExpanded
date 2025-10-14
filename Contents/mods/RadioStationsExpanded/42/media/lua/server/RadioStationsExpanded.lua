@@ -23,7 +23,6 @@ local function createSpawns(_airedMessage)
     if messageSpawn and messageSpawn.coordinates and messageSpawn.spawnedItems then
         local square = getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
         if square then
-
             for _, itemId in ipairs(messageSpawn.spawnedItems) do
                 local spotX = (ZombRand(1, 35)) / 10
                 local spotY = (ZombRand(1, 35)) / 10
@@ -38,16 +37,18 @@ local function createSpawns(_airedMessage)
             messageSpawn.triggeringSpawns = false -- Reset the triggering flag after spawning
             local zombieChance = ZombRand(1, 10)
             if messageSpawn.spawnsCorpses then
-                if zombieChance % 2 == 0 then
-                    local virtualManager = getVirtualZombieManager():createRealZombieNow(messageSpawn.coordinates.x,
-                        messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+                local roomDef = square:getRoom():getRoomDef()
+                if roomDef then
+                    messageSpawn.spawnsCorpses = false
+                    print("Spawning " .. messageSpawn.amountCorpses .. " corpses." .. "in roomdef: " ..
+                              tostring(roomDef))
+                    VirtualZombieManager.instance:addZombiesToMap(messageSpawn.amountCorpses, roomDef, false)
                 else
-                    for numberCorpses = 1, messageSpawn.amountCorpses + 1, 1 do
-                        createRandomDeadBody(square, 10)
-                    end
-
+                    print("No room definition found at the spawn location." .. "Going with normal spawn...")
+                    VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x,
+                        messageSpawn.coordinates.y, messageSpawn.coordinates.z)
                 end
-                messageSpawn.spawnsCorpses = false
+
             end
         else
             print("Invalid grid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
