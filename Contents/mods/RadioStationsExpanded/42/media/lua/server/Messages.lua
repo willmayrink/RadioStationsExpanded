@@ -286,6 +286,228 @@ local complexMessages = {
             RadioLine.new("Stay human out there...", 100, 100, 100),
             RadioLine.new("*soft weeping*", 50, 50, 50)
         }
+    },
+    {
+        messageKey = 13,
+        triggeringSpawns = true,
+        spawnsCorpses = true,
+        amountCorpses = 4,
+        spawnsGroup = "medical",
+        spawnedItems = {"FirstAidKit", "SuturingKit", "Antibiotics", "Painkillers", "Disinfectant", "Bandage", "Pills", "Beta Blocker"},
+        coordinates = { x = 10882, y = 10037, z = 0 }, -- Cortman Medical, Muldraugh
+        lines = {
+            RadioLine.new("This is Dr. Harlan from Cortman Medical... if anyone's listening...", 150, 150, 150),
+            RadioLine.new("The ER's a slaughterhouse now... bodies everywhere, the ones that used to be patients...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("I came here straight out of med school, full of that savior complex...", 150, 150, 150),
+            RadioLine.new("My first shift, we lost a kid to a tractor accident. Farmer's boy, all scraped up from the fields...", 150, 150, 150),
+            RadioLine.new("His dad waited in the hall, clutching a greasy John Deere cap, eyes like he was already burying him...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("We fought for hours, stitched him up, pumped him full of antibiotics... he pulled through...", 150, 150, 150),
+            RadioLine.new("Last I saw, that dad was teaching him to drive that same tractor, both grinning like fools...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Now? The supplies are still here, sutures, painkillers, the works... around 10880 by 10040...", 150, 150, 150),
+            RadioLine.new("But the fight's different. This thing... it doesn't care about stitches...", 150, 150, 150),
+            RadioLine.new("Take it all. Fight for your tractor boys, your pie-baking grannies...", 150, 150, 150),
+            RadioLine.new("Someone's gotta remember how to save 'em...", 100, 100, 100),
+            RadioLine.new("*distant moans and shuffling*", 50, 50, 50),
+            RadioLine.new("<door creaking open>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 14,
+        triggeringSpawns = true,
+        spawnsCorpses = false,
+        spawnsGroup = "guns",
+        spawnedItems = {"Pistol", "Bullets9mm", "Pistol2", "Shotgun", "ShotgunShells", "Bullets45LC"},
+        coordinates = { x = 11850, y = 7000, z = 0 }, -- West Point Medical Clinic
+        lines = {
+            RadioLine.new("West Point Clinic... Nurse Carla here... radio check, anyone?", 150, 150, 150),
+            RadioLine.new("God, the static's the only company I've got left...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("We kept a stash of sidearms in the office safe... doc's orders, after that break-in last year...", 150, 150, 150),
+            RadioLine.new("Pistols, a shotgun for the real crazies... shells and all...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Remember old Mr. Jenkins? Came in every Tuesday for his blood pressure meds...", 150, 150, 150),
+            RadioLine.new("Grumpy as hell, but he'd slip the kids lollipops from his pocket...", 150, 150, 150),
+            RadioLine.new("Told me once, after losing his wife, 'Carla, life's too short for frowns. Smile, even when it hurts.'...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("He turned first. Bit the receptionist before we could react...", 150, 150, 150),
+            RadioLine.new("I locked the safe, but... I can't hold out much longer...", 150, 150, 150),
+            RadioLine.new("Coords: 11850 north, 7000 east. Use 'em to keep smiling, Jenkins...", 150, 150, 150),
+            RadioLine.new("For the Tuesdays that won't come...", 100, 100, 100),
+            RadioLine.new("*whimpering*", 50, 50, 50),
+            RadioLine.new("<scratching at door>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 15,
+        triggeringSpawns = true,
+        spawnsCorpses = true,
+        amountCorpses = 2,
+        spawnsGroup = "food",
+        spawnedItems = {"CannedFood", "TinnedBeans", "CannedCorn", "OatsRaw", "JuiceBox", "Cereal", "CannedPeaches"},
+        coordinates = { x = 250, y = 9600, z = 0 }, -- Ekron Community College
+        lines = {
+            RadioLine.new("Ekron Community College... Professor Langford, history department...", 150, 150, 150),
+            RadioLine.new("The cafeteria's pantry... we stocked it for the storm warning yesterday...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Cans, cereals... enough for the whole faculty lounge to hole up...", 150, 150, 150),
+            RadioLine.new("But the students... they came shambling through the quad like it was finals week from hell...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("My TA, young Sarah... bright kid, always arguing manifest destiny in class...", 150, 150, 150),
+            RadioLine.new("Wanted to be a teacher, said history was about not repeating mistakes...", 150, 150, 150),
+            RadioLine.new("She barricaded the library door, bought us time... but they dragged her out...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("I ran here, to the kitchen. Locked in with ghosts and canned corn...", 150, 150, 150),
+            RadioLine.new("Take the food, around 250 north, 9600 east. Learn from it, Sarah...", 150, 150, 150),
+            RadioLine.new("Don't repeat this mistake. Teach 'em better...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("*book pages rustling*", 50, 50, 50),
+            RadioLine.new("Class dismissed...", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 16,
+        triggeringSpawns = true,
+        spawnsCorpses = true,
+        amountCorpses = 3,
+        spawnsGroup = "guns",
+        spawnedItems = {"Pistol3", "Bullets9mm", "AssaultRifle", "556Clip", "Shotgun", "ShotgunShellsBox", "Pistol", "Bullets45LC"},
+        coordinates = { x = 12940, y = 2076, z = 0 }, -- Louisville Central Hospital (adapted for guns in security)
+        lines = {
+            RadioLine.new("Central Hospital... this is Security Chief Ramirez... or was...", 150, 150, 150),
+            RadioLine.new("The lockdown failed... patients turning faster than we could sedate 'em...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("I started here as a candy striper, back when I was sixteen... scrubbing floors, fetching bedpans...", 150, 150, 150),
+            RadioLine.new("Fell for a nurse, married her after a decade of shifts and stolen kisses in the linen closet...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("Our boy was born in this very ER... cried like a banshee while the doc joked about football scholarships...", 150, 150, 150),
+            RadioLine.new("Now the halls echo with different screams... and he's out there somewhere, God help him...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("The security locker... sidearms, the riot shotgun... it's all there. Around 12940 north, 2075 east...", 150, 150, 150),
+            RadioLine.new("Use 'em to protect the ones still breathing... tell 'em Ramirez said so...", 150, 150, 150),
+            RadioLine.new("Maria... if you hear this... I love you. Always did.", 100, 100, 100),
+            RadioLine.new("*static crackle, fading heartbeat*", 50, 50, 50),
+            RadioLine.new("<final breath>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 17,
+        triggeringSpawns = false,
+        spawnsCorpses = false,
+        spawnsGroup = nil,
+        coordinates = nil,
+        spawnedItems = nil,
+        lines = {
+            RadioLine.new("Brandenburg dispatch... picking up echoes on the wire...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 150, 150, 150),
+            RadioLine.new("This town's got history, you know? Founded by Germans in the 1700s... breweries, brass bands, potlucks after church...", 150, 150, 150),
+            RadioLine.new("I grew up on stories from my granddad... he lost an arm in the mill, but he'd arm-wrestle anyone with the other...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 150, 150, 150),
+            RadioLine.new("Took me fishing on the Ohio, taught me to tie flies that'd fool any bass... said life's like that—hook 'em quick or they slip away...", 150, 150, 150),
+            RadioLine.new("Now the river's choked with floaters, and the band's instruments are just debris...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("If you're near the old bridge... watch the currents. They carry more than water these days...", 150, 150, 150),
+            RadioLine.new("Granddad'd say tie a stronger knot... but some things, you just let go...", 150, 150, 150),
+            RadioLine.new("Tight lines, folks... wherever you're casting...", 100, 100, 100),
+            RadioLine.new("<distant banjo strum, cut short>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 18,
+        triggeringSpawns = true,
+        spawnsCorpses = true,
+        amountCorpses = 2,
+        spawnsGroup = "medical",
+        spawnedItems = {"FirstAidKit", "Antibiotics", "Painkillers", "SuturingKit", "Disinfectant", "Bandage", "Pills"},
+        coordinates = { x = 12458, y = 3702, z = 0 }, -- St. Peregrin Hospital
+        lines = {
+            RadioLine.new("St. Peregrine's... Father Michael here... not the priest, the orderly...", 150, 150, 150),
+            RadioLine.new("We patched up the broken, the addicted... gave 'em a cot and a prayer if they needed it...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Sister Agnes ran triage like a general... lost her husband to the bottle, but she'd nurse anyone back...", 150, 150, 150),
+            RadioLine.new("Whispered rosaries over the dying, baked communion wafers that tasted like hope...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("She went down in the chapel, holding vespers for the infected... wouldn't let go of her beads...", 150, 150, 150),
+            RadioLine.new("The supply room's untouched... kits, sutures, whatever's left of mercy... 12460 north, 3700 east...", 150, 150, 150),
+            RadioLine.new("Take it. Bind wounds, not just bodies... souls too, if you can...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Agnes... rest easy. I'll see you on the other side...", 100, 100, 100),
+            RadioLine.new("*Ave Maria, hummed faintly*", 50, 50, 50),
+            RadioLine.new("<glass shattering nearby>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 19,
+        triggeringSpawns = true,
+        spawnsCorpses = false,
+        spawnsGroup = "food",
+        spawnedItems = {"CannedChilli", "TinnedBeans", "Cereal", "OatsRaw", "CannedFruitCocktail", "JuiceGrape", "CannedTomato", "CannedPeaches_Box"},
+        coordinates = { x = 13330, y = 1242, z = 0 }, -- Chugg's Beverage Factory
+        lines = {
+            RadioLine.new("Chugg's Factory... this is line worker Eddie... or the ghost of one...", 150, 150, 150),
+            RadioLine.new("We bottled the buzz... beer, soda, whatever kept the parties flowing...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("My pops ran the yeast vats... taught me to sneak sips, said it built character... and a tolerance...", 150, 150, 150),
+            RadioLine.new("We'd crack cold ones after shifts, him telling tales of bootlegging in the hills during Prohibition...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("The outbreak hit during inventory... pallets of cans toppled like dominoes, and the dead rose with hangovers...", 150, 150, 150),
+            RadioLine.new("Pops barricaded the cooler, went down buying time for the newbies...", 150, 150, 150),
+            RadioLine.new("The stockroom's full... chilis, beans, fruits in tins... 13330 north, 1240 east. Toast to the old man...", 150, 150, 150),
+            RadioLine.new("To the hills, and the hooch that got us through...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Bottoms up... while you still can...", 100, 100, 100),
+            RadioLine.new("*clink of cans, echoing empty>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 20,
+        triggeringSpawns = true,
+        spawnsCorpses = true,
+        amountCorpses = 1,
+        spawnsGroup = "tools",
+        spawnedItems = {"Hammer", "Saw", "NailsBox", "ScrewsBox", "Wrench", "Drill", "Crowbar"},
+        coordinates = { x = 13682, y = 1572, z = 0 }, -- Office Furniture Store
+        lines = {
+            RadioLine.new("Office Outfitters... Foreman Jake broadcasting... from under a desk, probably...", 150, 150, 150),
+            RadioLine.new("We furnished the grind... desks for the drones, chairs for the chains...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("My crew... bunch of ex-cons I hired 'cause who else wants to haul particle board at dawn?...", 150, 150, 150),
+            RadioLine.new("Big Tony, did time for boosting cars... built birdhouses in the joint, dreamed of a shop...", 150, 150, 150),
+            RadioLine.new("I'd front him the tools if he stayed straight... he did, for three years...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("The horde smashed through the loading bay... Tony held the forklift like a chariot, crushed a dozen before they swarmed...", 150, 150, 150),
+            RadioLine.new("Left the hammers, saws, nails... all scattered in the showroom. 13680 north, 1570 east...", 150, 150, 150),
+            RadioLine.new("Build something solid, for the dreamers who didn't make it...", 150, 150, 150),
+            RadioLine.new("Tony... your shop's waiting. Just on the other side...", 100, 100, 100),
+            RadioLine.new("*wood creaking, under strain>", 50, 50, 50),
+            RadioLine.new("<thud of falling shelf>", 50, 50, 50)
+        }
+    },
+    {
+        messageKey = 21,
+        triggeringSpawns = true,
+        spawnsCorpses = false,
+        spawnsGroup = "guns",
+        spawnedItems = {"Pistol2", "Bullets45LC", "Shotgun", "ShotgunShells", "AssaultRifle", "556Clip", "Pistol", "Bullets9mm"},
+        coordinates = { x = 12090, y = 6783, z = 0 }, -- Stendo's Firearms Emporium
+        lines = {
+            RadioLine.new("Stendo's... Dale Stendo signing off... for good, looks like...", 150, 150, 150),
+            RadioLine.new("This shop's been in the family since granddad slung squirrels post-Depression...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("I'd bring my first buck here, antlers scraping the rafters... he'd clean it, tell yarns of moonshiners and possum hunts...", 150, 150, 150),
+            RadioLine.new("Mounted the head over the counter—'Stendo's Guarantee: If it don't shoot straight, it'll scare 'em stiff'...", 150, 150, 150),
+            RadioLine.new("<fzzt>", 50, 50, 50),
+            RadioLine.new("The wife's been nagging to sell... too many break-ins, not enough Sundays at church...", 150, 150, 150),
+            RadioLine.new("Last night, the windows blew in... customers turning on each other mid-browse...", 150, 150, 150),
+            RadioLine.new("The back room's loaded... revolvers, scatterguns, the AR for 'those days'... 12090 north, 6780 east...", 150, 150, 150),
+            RadioLine.new("Hunt smart. For the stories we won't tell anymore...", 150, 150, 150),
+            RadioLine.new("<bzzt>", 50, 50, 50),
+            RadioLine.new("Wife... if you're out there... the deer's on you tonight...", 100, 100, 100),
+            RadioLine.new("*bolt chambering>", 50, 50, 50),
+            RadioLine.new("<rapid fire, then silence>", 50, 50, 50)
+        }
     }
 }
 
