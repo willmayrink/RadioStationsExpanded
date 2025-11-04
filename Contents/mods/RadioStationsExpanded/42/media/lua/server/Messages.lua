@@ -272,7 +272,7 @@ local complexMessages = {
         lines = {
             RadioLine.new("Muldraugh Medical... Doctor Elena speaking... or whispering, I guess...", 150, 150, 150),
             RadioLine.new("<fzzt>", 150, 150, 150),
-            RadioLine.new("The clinic's supply closet... bandages, antibiotics... I restocked it myself this morning...", 150, 150, 150),
+            RadioLine.new("The clinic's supply closet... bandages, antibiotics... I restocked it myself few days ago...", 150, 150, 150),
             RadioLine.new("Before the patients started... changing...", 150, 150, 150),
             RadioLine.new("<bzzt>", 50, 50, 50),
             RadioLine.new("Mrs. Whitaker came in for her arthritis meds. Sweet lady, baked the best apple pies for bake sales...", 150, 150, 150),
