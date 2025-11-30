@@ -293,7 +293,7 @@ local complexMessages = {
         spawnsCorpses = true,
         amountCorpses = 4,
         spawnsGroup = "medical",
-        spawnedItems = {"FirstAidKit", "SuturingKit", "Antibiotics", "Painkillers", "Disinfectant", "Bandage", "Pills", "Beta Blocker"},
+        spawnedItems = {"FirstAidKit", "SutureNeedle", "Antibiotics", "Disinfectant", "Bandage", "Pills", "PillsBeta"},
         coordinates = { x = 10882, y = 10037, z = 0 }, -- Cortman Medical, Muldraugh
         lines = {
             RadioLine.new("This is Dr. Harlan from Cortman Medical... if anyone's listening...", 150, 150, 150),
@@ -420,7 +420,7 @@ local complexMessages = {
         spawnsCorpses = true,
         amountCorpses = 2,
         spawnsGroup = "medical",
-        spawnedItems = {"FirstAidKit", "Antibiotics", "Painkillers", "SuturingKit", "Disinfectant", "Bandage", "Pills"},
+        spawnedItems = {"FirstAidKit", "Antibiotics", "SutureNeedle", "Disinfectant", "Bandage", "Pills"},
         coordinates = { x = 12458, y = 3702, z = 0 }, -- St. Peregrin Hospital
         lines = {
             RadioLine.new("St. Peregrine's... Father Michael here... not the priest, the orderly...", 150, 150, 150),

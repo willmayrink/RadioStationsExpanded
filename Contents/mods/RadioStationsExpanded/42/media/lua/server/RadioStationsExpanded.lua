@@ -184,7 +184,7 @@ local function scheduledBroadcast()
     local gameTime = getGameTime()
     local day = gameTime:getDay()
     local hour = gameTime:getHour()
-    local minute = gameTime:getMinute()
+    local minute = gameTime:getMinutes()
 
     -- Precise: 8-11 AM window, once per day
     if day ~= lastBroadcastDay and hour >= 8 and hour < 11 and minute == 0 and ZombRand(1, 20) == 1 then
