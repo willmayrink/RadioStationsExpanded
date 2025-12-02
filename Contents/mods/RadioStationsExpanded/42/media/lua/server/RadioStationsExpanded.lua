@@ -22,7 +22,9 @@ table.insert(DynamicRadio.channels, {
 -- Helper: table.contains (for arrays; we use sets now, but backward compat)
 local function tableContains(tbl, value)
     for _, v in ipairs(tbl) do
-        if v == value then return true end
+        if v == value then
+            return true
+        end
     end
     return false
 end
@@ -30,17 +32,19 @@ end
 -- Helper: table size for sets
 local function tableSize(tbl)
     local count = 0
-    for _ in pairs(tbl) do count = count + 1 end
+    for _ in pairs(tbl) do
+        count = count + 1
+    end
     return count
 end
 
 local function initModData()
     local modData = ModData.getOrCreate("RadioStationsExpanded")
     if not modData.playedMessages then
-        modData.playedMessages = {}  -- Now a set { [key] = true }
+        modData.playedMessages = {} -- Now a set { [key] = true }
     end
     if not modData.spawnedMessages then
-        modData.spawnedMessages = {}  -- Per-key spawn flags { [key] = true }
+        modData.spawnedMessages = {} -- Per-key spawn flags { [key] = true }
     end
     print("Initialized RadioStationsExpanded mod data.")
     print("Played messages count: " .. tableSize(modData.playedMessages))
@@ -54,11 +58,11 @@ local function onNewGameReset()
     ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
     ModData.getOrCreate("RadioStationsExpanded").spawnedMessages = modData.spawnedMessages
     print("RSE: Reset data for new game.")
-    initModData()  -- Re-cache
+    initModData() -- Re-cache
 end
 
 local function createSpawns(_airedMessage)
-    local messageSpawn = _airedMessage  -- Assume copy from playMessage
+    local messageSpawn = _airedMessage -- Assume copy from playMessage
     local key = messageSpawn.messageKey
     local modData = RadioExpandedCache
 
@@ -76,18 +80,33 @@ local function createSpawns(_airedMessage)
                 local spotY = (ZombRand(1, 35)) / 10
                 print("spotX is: " .. spotX .. " spotY is: " .. spotY)
                 if square:AddWorldInventoryItem(itemId, spotX, spotY, 0) then
-                    print("Spawned item: " .. itemId .. " at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
+                    print("Spawned item: " .. itemId .. " at X: " .. messageSpawn.coordinates.x .. " Y: " ..
+                              messageSpawn.coordinates.y) -- Check the spawn coordinates
                 end
             end
-            if messageSpawn.spawnsCorpses then
+            if messageSpawn.spawnsCorpses and messageSpawn.amountCorpses < 5 then
                 local roomDef = square:getRoom():getRoomDef()
-                if roomDef then
+                if roomDef then -- We need to check if we have a room definition to spawn in, since Zomboid handles outside spawns differently
                     print("Spawning " .. messageSpawn.amountCorpses .. " corpses in room: " .. tostring(roomDef))
                     VirtualZombieManager.instance:addZombiesToMap(messageSpawn.amountCorpses, roomDef, false)
                 else
-                    print("No room def; world spawn at " .. messageSpawn.coordinates.x .. "," .. messageSpawn.coordinates.y)
-                    VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+
+                    for i = 1, messageSpawn.amountCorpses do
+                        print("No room def; world spawn at " .. messageSpawn.coordinates.x .. "," ..
+                                  messageSpawn.coordinates.y .. " count: " .. i .. "/" .. messageSpawn.amountCorpses)
+                        -- Since there's no room definition, we spawn them directly at the coordinates, but this wasn't happening for the correct number of zombies since there was no for loop
+                        -- So now we loop the correct amount of times to spawn the desired number of zombies
+                        VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x,
+                            messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+                    end
                 end
+            end
+            if messageSpawn.spawnsCorpses and messageSpawn.amountCorpses >= 5 then
+                print("Spawning horde of " .. messageSpawn.amountCorpses .. " corpses around coordinates X: " ..
+                          messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y .. ".")
+                VirtualZombieManager.instance:createHordeFromTo(messageSpawn.coordinates.x - 3,
+                    messageSpawn.coordinates.y - 3, messageSpawn.coordinates.x + 3, messageSpawn.coordinates.y + 3,
+                    messageSpawn.amountCorpses)
             end
         else
             print("Invalid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
@@ -104,21 +123,21 @@ end
 
 local function verifyRadioMessage()
     local current = RadioStationsExpanded.currentMessage
-    if current then  -- Always check if broadcast is active
+    if current then -- Always check if broadcast is active
         if current.triggeringSpawns then
             createSpawns(current)
         end
-        current.triggeringSpawns = false  -- Reset on copy (safe)
-        
+        current.triggeringSpawns = false -- Reset on copy (safe)
+
         -- Mark as played post-air (completion)
         local key = current.messageKey
         local modData = RadioExpandedCache
-        if not modData.playedMessages[key] then  -- Double-check (edge: multi-call)
+        if not modData.playedMessages[key] then -- Double-check (edge: multi-call)
             modData.playedMessages[key] = true
             ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
             print("RSE: Completed/Marked key " .. key .. " as played.")
         end
-        
+
         -- Optional: Clear currentMessage after full broadcast (prevents stale)
         -- RadioStationsExpanded.currentMessage = nil  -- Uncomment if broadcasts overlap rarely
     end
@@ -153,9 +172,6 @@ local function playMessage()
     local originalMsg = unplayed[randIndex]
     local key = originalMsg.messageKey
 
-    -- NO pre-air mark here (moved to verify for completion)
-
-    -- Copy for runtime flags (no global mutation)
     local airedMessage = {}
     for k, v in pairs(originalMsg) do
         airedMessage[k] = v
@@ -165,17 +181,17 @@ local function playMessage()
     local broadCast = RadioBroadCast.new("SURV channel - ID: " .. tostring(ZombRand(1, 99999)), -1, -1)
     if not broadCast then
         print("Failed to create broadcast.")
-        return  -- No unmark needed (wasn't marked)
+        return -- No unmark needed (wasn't marked)
     end
 
-    RadioStationsExpanded.currentMessage = airedMessage  -- Update global
+    RadioStationsExpanded.currentMessage = airedMessage --This is global, don't fuck it up!
     for _, line in ipairs(airedMessage.lines) do
         if line then
             broadCast:AddRadioLine(line)
         end
     end
     radioChannel:setAiringBroadcast(broadCast)
-    
+
     print("RSE: Aired key " .. key .. " (" .. (#unplayed - 1) .. " left; marking on completion).")
 end
 
