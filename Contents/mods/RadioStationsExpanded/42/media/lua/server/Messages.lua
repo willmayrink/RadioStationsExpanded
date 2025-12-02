@@ -73,7 +73,7 @@ local complexMessages = {
         spawnsCorpses = true,
         amountCorpses = 1,
         spawnsGroup = "guns",
-        spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","ShotgunShellsBox","Bullets9mm"},
+        spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","ShotgunShellsBox","Bullets9mm","WalkieTalkie4","Bag_DuffelBag"},
         coordinates = {x = 7253, y = 8379, z = 0},
         lines = {
             RadioLine.new("What a shame...", 150, 150, 150),
@@ -267,7 +267,7 @@ local complexMessages = {
         triggeringSpawns = true,
         spawnsCorpses = false,
         spawnsGroup = "medical",
-        spawnedItems = {"Bandage", "Pills", "FirstAidKit", "Antibiotics"},
+        spawnedItems = {"Bandage", "Pills", "FirstAidKit", "Antibiotics","Bag_Schoolbag_Medical"},
         coordinates = { x = 10619, y = 9966, z = 0 }, -- Muldraugh Clinic or nearby
         lines = {
             RadioLine.new("Muldraugh Medical... Doctor Elena speaking... or whispering, I guess...", 150, 150, 150),
@@ -467,7 +467,7 @@ local complexMessages = {
         spawnsCorpses = true,
         amountCorpses = 1,
         spawnsGroup = "tools",
-        spawnedItems = {"Hammer", "Saw", "NailsBox", "ScrewsBox", "Wrench", "Drill", "Crowbar"},
+        spawnedItems = {"Hammer", "Saw", "NailsBox", "ScrewsBox", "Wrench", "Drill", "Crowbar","EletronicsMag4"},
         coordinates = { x = 13682, y = 1572, z = 0 }, -- Office Furniture Store
         lines = {
             RadioLine.new("Office Outfitters... Foreman Jake broadcasting... from under a desk, probably...", 150, 150, 150),
