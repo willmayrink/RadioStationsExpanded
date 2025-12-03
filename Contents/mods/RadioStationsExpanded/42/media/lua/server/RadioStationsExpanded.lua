@@ -85,8 +85,10 @@ local function createSpawns(_airedMessage)
                     print("Spawning " .. messageSpawn.amountCorpses .. " corpses in room: " .. tostring(roomDef))
                     VirtualZombieManager.instance:addZombiesToMap(messageSpawn.amountCorpses, roomDef, false)
                 else
+                    for i = 1, messageSpawn.amountCorpses do
                     print("No room def; world spawn at " .. messageSpawn.coordinates.x .. "," .. messageSpawn.coordinates.y)
                     VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+                    end
                 end
             end
         else
