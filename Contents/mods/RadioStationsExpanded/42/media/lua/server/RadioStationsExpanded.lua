@@ -75,31 +75,34 @@ local function createSpawns(_airedMessage)
     if messageSpawn and messageSpawn.coordinates and messageSpawn.spawnedItems then
         local square = getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
         if square then
-            for _, itemId in ipairs(messageSpawn.spawnedItems) do
-                local spotX = (ZombRand(1, 35)) / 10
-                local spotY = (ZombRand(1, 35)) / 10
-                print("spotX is: " .. spotX .. " spotY is: " .. spotY)
-                if square:AddWorldInventoryItem(itemId, spotX, spotY, 0) then
-                    print("Spawned item: " .. itemId .. " at X: " .. messageSpawn.coordinates.x .. " Y: " ..
-                              messageSpawn.coordinates.y)
-                end
-            end
-            if messageSpawn.spawnsCorpses then
-                local roomDef = square:getRoom():getRoomDef()
-                if roomDef then
-                    print("Spawning " .. messageSpawn.amountCorpses .. " corpses in room: " .. tostring(roomDef))
-                    VirtualZombieManager.instance:addZombiesToMap(messageSpawn.amountCorpses, roomDef, false)
-                else
-                    for i = 1, messageSpawn.amountCorpses do
-                        print("It's a world zombie spawn at " .. messageSpawn.coordinates.x .. "," ..
-                                  messageSpawn.coordinates.y .. ", current zombie count: " .. i)
-                        VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x,
-                            messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+            local currentBroadcast = DynamicRadio.cache["SURV-001"]:getAiringBroadcast()
+            if currentBroadcast then
+                local totalLines = currentBroadcast:getLines():size()
+                local currentLineNum = currentBroadcast:getCurrentLineNumber()
+
+                if currentLineNum > 0 and currentLineNum == totalLines then
+
+                    -- Som final
+                    if current.triggeringSounds and current.metaSoundId then
+                        getSoundManager():PlayWorldSound(current.metaSoundId, false, square, 0.0, 350, 1.0, false)
                     end
+
+                    -- Spawn
+                    if current.triggeringSpawns then
+                        createSpawns(current)
+                    end
+
+                    -- Marca como concluída
+                    local key = current.messageKey
+                    if key and not RadioExpandedCache.playedMessages[key] then
+                        RadioExpandedCache.playedMessages[key] = true
+                        ModData.getOrCreate("RadioStationsExpanded").playedMessages = RadioExpandedCache.playedMessages
+                    end
+
+                    -- Limpa a transmissão
+                    RadioStationsExpanded.currentMessage = nil
                 end
             end
-        else
-            print("Invalid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
         end
     else
         print("No items to spawn for key " .. key)
