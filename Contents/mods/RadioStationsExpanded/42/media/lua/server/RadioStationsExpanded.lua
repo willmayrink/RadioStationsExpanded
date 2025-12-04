@@ -1,6 +1,8 @@
 -- Initialize mod namespace
 local RadioStationsExpanded = RadioStationsExpanded or {}
 RadioStationsExpanded.currentMessage = nil -- Store the currently airing message
+RadioStationsExpanded.waveSignal = nil -- Store the IsoWaveSignal instance
+RadioStationsExpanded.deviceData = nil -- Store the device data
 
 -- Initializing cache
 local RadioExpandedCache = {}
@@ -55,6 +57,34 @@ local function onNewGameReset()
     ModData.getOrCreate("RadioStationsExpanded").spawnedMessages = modData.spawnedMessages
     print("RSE: Reset data for new game.")
     initModData()  -- Re-cache
+end
+
+local function waveSignalSetup(_airedMessage)
+    local currentMessage = _airedMessage
+    local cell = getCell(math.floor(currentMessage.coordinates.x / 300), math.floor(currentMessage.coordinates.y / 300))
+    local waveSignal = IsoWaveSignal.new(cell)
+    if waveSignal then
+        print("RSE: We officially have a wave signal instance.")
+        local deviceData = waveSignal:getDeviceData()
+        if deviceData then
+            print("RSE: We officially have device data from the wave signal.")
+            deviceData:setFrequency(88000)
+            deviceData:setTransmit(true)
+            print("We're tunned on: " .. deviceData:getFrequency() .. "MHz")
+            RadioStationsExpanded.deviceData = deviceData
+        end
+    end
+end
+
+local function playMessageSound(_airedMessage)
+    local currentMessage = _airedMessage
+    if currentMessage.metaSoundId then
+        local deviceData = RadioStationsExpanded.deviceData
+        if deviceData then
+            print("RSE: We officially have device data.")
+            deviceData:playSound(currentMessage.metaSoundId, 0.3, true)
+        end
+    end
 end
 
 local function createSpawns(_airedMessage)
