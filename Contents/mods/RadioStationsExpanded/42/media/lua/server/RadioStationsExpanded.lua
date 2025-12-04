@@ -140,7 +140,9 @@ local function verifyRadioMessage()
 
                             -- Som final
                             if current.triggeringSounds and current.metaSoundId then
-                                getSoundManager():PlayWorldSound(current.metaSoundId, false, -- loop
+                                getSoundManager():PlayWorldSound(
+                                current.metaSoundId,
+                                false, -- loop
                                 square, -- square
                                 0.0, -- pitch
                                 10, -- radius
