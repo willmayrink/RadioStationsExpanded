@@ -109,6 +109,7 @@ local function createSpawns(_airedMessage)
     modData.spawnedMessages[key] = true
     ModData.getOrCreate("RadioStationsExpanded").spawnedMessages = modData.spawnedMessages
     print("RSE: Marked spawns for key " .. key .. " as done.")
+
 end
 
 local function verifyRadioMessage()
@@ -118,7 +119,54 @@ local function verifyRadioMessage()
             createSpawns(current)
         end
         current.triggeringSpawns = false -- Reset on copy (safe)
+        if current.triggeringSounds and current.metaSoundId then
+            local player = getPlayer() -- funciona em SP e MP (client-side)
+            -- Em servidor dedicado use: getSpecificPlayer(0) ou loop por players
+            if player and player:isAlive() then
+                local square = player:getSquare() -- <-- ISSO AQUI É OBRIGATÓRIO
+                if square then
+                    local currentBroadcast = DynamicRadio.cache["SURV-001"]:getAiringBroadcast()
+                    if currentBroadcast then
+                        local totalLines = currentBroadcast:getLines():size()
+                        local currentLineNumber = currentBroadcast:getCurrentLineNumber()
 
+                        -- Quando a linha atual for igual ao total → acabamos de tocar a última
+                        if currentLineNumber > 0 and currentLineNumber == totalLines then
+
+                            print("[RSE] FIM DA TRANSMISSÃO DETECTADO (key " .. current.messageKey .. ")")
+
+                            -- Som final
+                            if current.triggeringSounds and current.metaSoundId then
+                                getSoundManager():PlayWorldSound(current.metaSoundId, false, -- loop
+                                square, -- square
+                                0.0, -- pitch
+                                10, -- radius
+                                0.5, -- volume
+                                false -- isAmbient
+                                )
+                                print("[RSE] Som final executado: " .. current.metaSoundId)
+                            end
+
+                            -- Spawn
+                            if current.triggeringSpawns then
+                                createSpawns(current)
+                            end
+
+                            -- Marca como tocada
+                            local key = current.messageKey
+                            local modData = RadioExpandedCache
+                            if key and not modData.playedMessages[key] then
+                                modData.playedMessages[key] = true
+                                ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
+                            end
+
+                            -- Limpa
+                            RadioStationsExpanded.currentMessage = nil
+                        end
+                    end
+                end
+            end
+        end
         -- Mark as played post-air (completion)
         local key = current.messageKey
         local modData = RadioExpandedCache
@@ -158,7 +206,7 @@ local function playMessage()
     end
 
     -- Random from unplayed
-    local randIndex = ZombRand(1, #unplayed + 1)
+    local randIndex = ZombRand(#unplayed) + 1
     local originalMsg = unplayed[randIndex]
     local key = originalMsg.messageKey
 
@@ -201,6 +249,60 @@ local function scheduledBroadcast()
         playMessage()
     end
 end
+
+-- this is only for debug purpose please don't fuck up my code I love u'RSE: All messages played; skipping.
+
+function forceRadioMessage(key)
+    key = tonumber(key)
+    if not key then
+        print("RSE Debug: key inválida! Use forceRadioMessage(4)")
+        return
+    end
+
+    local radioChannel = DynamicRadio.cache["SURV-001"]
+    if not radioChannel then
+        print("RSE Debug: Canal SURV-001 não encontrado! Tá sem o mod ativado?")
+        return
+    end
+
+    local msg = nil
+    for _, m in ipairs(complexMessages) do
+        if m.messageKey == key then
+            msg = m
+            break
+        end
+    end
+
+    if not msg then
+        print("RSE Debug: Mensagem com key " .. key .. " não existe! Total: " .. #complexMessages)
+        return
+    end
+
+    -- Cópia limpa pra não sujar o original
+    local airedMessage = {}
+    for k, v in pairs(msg) do
+        airedMessage[k] = v
+    end
+    airedMessage.triggeringSpawns = msg.triggeringSpawns or false
+    airedMessage.triggeringSounds = msg.triggeringSounds or false
+
+    -- Cria broadcast
+    local broadcast = RadioBroadCast.new("DEBUG RSE - Key " .. key, -1, -1)
+    for _, line in ipairs(airedMessage.lines) do
+        broadcast:AddRadioLine(line)
+    end
+
+    -- Força transmissão (mesmo se já tiver algo tocando)
+    radioChannel:setAiringBroadcast(broadcast)
+    RadioStationsExpanded.currentMessage = airedMessage
+
+    print("RSE DEBUG: Mensagem key " .. key .. " forçada com sucesso!")
+    print("   → Spawns: " .. tostring(airedMessage.triggeringSpawns))
+    print("   → Som: " .. tostring(airedMessage.metaSoundId or "nenhum"))
+end
+
+-- Alias mais curto (opcional)
+forceMessage = forceRadioMessage
 
 -- Events (using named functions)
 Events.OnGameStart.Add(initModData)
