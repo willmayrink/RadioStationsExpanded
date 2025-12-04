@@ -105,34 +105,31 @@ local function createSpawns(_airedMessage)
     if messageSpawn and messageSpawn.coordinates and messageSpawn.spawnedItems then
         local square = getSquare(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
         if square then
-            local currentBroadcast = DynamicRadio.cache["SURV-001"]:getAiringBroadcast()
-            if currentBroadcast then
-                local totalLines = currentBroadcast:getLines():size()
-                local currentLineNum = currentBroadcast:getCurrentLineNumber()
-
-                if currentLineNum > 0 and currentLineNum == totalLines then
-
-                    -- Som final
-                    if current.triggeringSounds and current.metaSoundId then
-                        getSoundManager():PlayWorldSound(current.metaSoundId, false, square, 0.0, 350, 1.0, false)
-                    end
-
-                    -- Spawn
-                    if current.triggeringSpawns then
-                        createSpawns(current)
-                    end
-
-                    -- Marca como concluída
-                    local key = current.messageKey
-                    if key and not RadioExpandedCache.playedMessages[key] then
-                        RadioExpandedCache.playedMessages[key] = true
-                        ModData.getOrCreate("RadioStationsExpanded").playedMessages = RadioExpandedCache.playedMessages
-                    end
-
-                    -- Limpa a transmissão
-                    RadioStationsExpanded.currentMessage = nil
+            for _, itemId in ipairs(messageSpawn.spawnedItems) do
+                local spotX = (ZombRand(1, 35)) / 10
+                local spotY = (ZombRand(1, 35)) / 10
+                print("spotX is: " .. spotX .. " spotY is: " .. spotY)
+                if square:AddWorldInventoryItem(itemId, spotX, spotY, 0) then
+                    print("Spawned item: " .. itemId .. " at X: " .. messageSpawn.coordinates.x .. " Y: " ..
+                              messageSpawn.coordinates.y)
                 end
             end
+            if messageSpawn.spawnsCorpses then
+                local roomDef = square:getRoom():getRoomDef()
+                if roomDef then
+                    print("Spawning " .. messageSpawn.amountCorpses .. " corpses in room: " .. tostring(roomDef))
+                    VirtualZombieManager.instance:addZombiesToMap(messageSpawn.amountCorpses, roomDef, false)
+                else
+                    for i = 1, messageSpawn.amountCorpses do
+                        print("It's a world zombie spawn at " .. messageSpawn.coordinates.x .. "," ..
+                                  messageSpawn.coordinates.y .. ", current zombie count: " .. i)
+                        VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x,
+                            messageSpawn.coordinates.y, messageSpawn.coordinates.z)
+                    end
+                end
+            end
+        else
+            print("Invalid square at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
         end
     else
         print("No items to spawn for key " .. key)
@@ -142,77 +139,46 @@ local function createSpawns(_airedMessage)
     modData.spawnedMessages[key] = true
     ModData.getOrCreate("RadioStationsExpanded").spawnedMessages = modData.spawnedMessages
     print("RSE: Marked spawns for key " .. key .. " as done.")
-
 end
 
 local function verifyRadioMessage()
     local current = RadioStationsExpanded.currentMessage
     if current then -- Always check if broadcast is active
-        if current.triggeringSpawns then
-            createSpawns(current)
-        end
-        current.triggeringSpawns = false -- Reset on copy (safe)
-        if current.triggeringSounds and current.metaSoundId then
-            local player = getPlayer() -- funciona em SP e MP (client-side)
-            -- Em servidor dedicado use: getSpecificPlayer(0) ou loop por players
-            if player and player:isAlive() then
-                local square = player:getSquare() -- <-- ISSO AQUI É OBRIGATÓRIO
-                if square then
-                    local currentBroadcast = DynamicRadio.cache["SURV-001"]:getAiringBroadcast()
-                    if currentBroadcast then
-                        local totalLines = currentBroadcast:getLines():size()
-                        local currentLineNumber = currentBroadcast:getCurrentLineNumber()
+        local currentBroadcast = DynamicRadio.cache["SURV-001"]:getAiringBroadcast()
+        if currentBroadcast then
+            local totalLines = currentBroadcast:getLines():size()
+            local currentLineNumber = currentBroadcast:getCurrentLineNumber()
 
-                        -- Quando a linha atual for igual ao total → acabamos de tocar a última
-                        if currentLineNumber > 0 and currentLineNumber == totalLines then
+            -- Quando a linha atual for igual ao total → acabamos de tocar a última
+            if currentLineNumber > 0 and currentLineNumber == totalLines then
 
-                            print("[RSE] FIM DA TRANSMISSÃO DETECTADO (key " .. current.messageKey .. ")")
+                print("[RSE] FIM DA TRANSMISSÃO DETECTADO (key " .. current.messageKey .. ")")
 
-                            -- Som final
-                            if current.triggeringSounds and current.metaSoundId then
-                                getSoundManager():PlayWorldSound(
-                                current.metaSoundId,
-                                false, -- loop
-                                square, -- square
-                                0.0, -- pitch
-                                10, -- radius
-                                0.5, -- volume
-                                false -- isAmbient
-                                )
-                                print("[RSE] Som final executado: " .. current.metaSoundId)
-                            end
-
-                            -- Spawn
-                            if current.triggeringSpawns then
-                                createSpawns(current)
-                            end
-
-                            -- Marca como tocada
-                            local key = current.messageKey
-                            local modData = RadioExpandedCache
-                            if key and not modData.playedMessages[key] then
-                                modData.playedMessages[key] = true
-                                ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
-                            end
-
-                            -- Limpa
-                            RadioStationsExpanded.currentMessage = nil
-                        end
-                    end
+                -- Som final
+                if current.triggeringSounds and current.metaSoundId then
+                    playMessageSound(current)
+                    RadioStationsExpanded.deviceData = nil -- Limpa referência
+                    RadioStationsExpanded.waveSignal = nil -- Limpa referência
                 end
+
+                -- Spawn
+                if current.triggeringSpawns then
+                    createSpawns(current)
+                end
+
+                -- Marca como tocada
+                local key = current.messageKey
+                local modData = RadioExpandedCache
+                if key and not modData.playedMessages[key] then
+                    modData.playedMessages[key] = true
+                    ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
+                    print("RSE: Completed/Marked key " .. key .. " as played.")
+                end
+
+                -- Limpa
+                RadioStationsExpanded.currentMessage = nil
             end
         end
-        -- Mark as played post-air (completion)
-        local key = current.messageKey
-        local modData = RadioExpandedCache
-        if not modData.playedMessages[key] then -- Double-check (edge: multi-call)
-            modData.playedMessages[key] = true
-            ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
-            print("RSE: Completed/Marked key " .. key .. " as played.")
-        end
-
-        -- Optional: Clear currentMessage after full broadcast (prevents stale)
-        -- RadioStationsExpanded.currentMessage = nil  -- Uncomment if broadcasts overlap rarely
     end
 end
 
@@ -267,6 +233,11 @@ local function playMessage()
         end
     end
     radioChannel:setAiringBroadcast(broadCast)
+
+    -- Creating a cell so we can instance an IsoWaveSignal object and then retrieve its deviceData and then play the sound through the Radio and not a PlayWorldSound
+    if airedMessage.triggeringSounds then
+        waveSignalSetup(airedMessage)
+    end
 
     print("RSE: Aired key " .. key .. " (" .. (#unplayed - 1) .. " left; marking on completion).")
 end
@@ -330,6 +301,11 @@ function forceRadioMessage(key)
     -- Força transmissão (mesmo se já tiver algo tocando)
     radioChannel:setAiringBroadcast(broadcast)
     RadioStationsExpanded.currentMessage = airedMessage
+
+    -- Creating a cell so we can instance an IsoWaveSignal object and then retrieve its deviceData and then play the sound through the Radio and not a PlayWorldSound
+    if airedMessage.triggeringSounds then
+        waveSignalSetup(airedMessage)
+    end
 
     print("RSE DEBUG: Mensagem key " .. key .. " forçada com sucesso!")
     print("   → Spawns: " .. tostring(airedMessage.triggeringSpawns))
