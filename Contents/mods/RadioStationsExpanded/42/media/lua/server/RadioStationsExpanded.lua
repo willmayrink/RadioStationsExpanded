@@ -1,6 +1,7 @@
 local RadioStationsExpanded = RadioStationsExpanded or {}
 RadioStationsExpanded.currentMessage = nil
-RadioStationsExpanded.deviceData = nil --Global for device data.
+RadioStationsExpanded.deviceData = nil -- Global for device data.
+RadioStationsExpanded.currentBroadcast = nil
 
 local RadioExpandedCache = {}
 local complexMessages = require("Messages")
@@ -83,45 +84,66 @@ local function createSpawns(message)
 end
 
 -- ===================================================================
--- 4. MAIN: Called every time a radio displays a line of our broadcast
+-- 4. MAIN: Playing sounds through radio. Please God, make this work.
+-- ===================================================================
+local function playingSoundsThroughRadio(deviceData, soundsToPlay)
+    if not deviceData or not soundsToPlay then
+        return
+    end
+
+    for _, soundName in ipairs(soundsToPlay) do
+        deviceData:playSound(soundName)
+    end
+end
+
+
+-- ===================================================================
+-- 5. MAIN: Called every time a radio displays a line of our broadcast
 -- ===================================================================
 local function onDeviceText(guid, codes, x, y, z, text, device)
-    RadioStationsExpanded.deviceData = device:getDeviceData()
-    --[[RadioStationsExpanded.deviceData = device:getDeviceData()
-    local dd = RadioStationsExpanded.deviceData
-    dd:playSoundLocal("MetaAssaultRifle1", true)
-    print("[RSE] objects: " .. tostring(guid) .. " - " .. tostring(codes) .. " - " .. tostring(text) .. " - " .. tostring(x) .. "," .. tostring(y) .. "," .. tostring(z))
-    print("[RSE] Device: " .. tostring(device))
-]]
+    local channel = DynamicRadio.cache["SURV-001"]
+    if channel:getAiringBroadcast() then
+        print("A broadcast is airing on SURV-001")
+        RadioStationsExpanded.currentBroadcast = channel:getAiringBroadcast()
+        if not RadioStationsExpanded.currentBroadcast:getNextLine() then
+            print("This broadcast has no next line.")
+            playingSoundsThroughRadio(RadioStationsExpanded.deviceData, RadioStationsExpanded.currentMessage.soundsToPlay)
+        end
+    else
+        RadioStationsExpanded.currentBroadcast = nil
+        print("No broadcast is airing on SURV-001")
+        return
+    end
+    -- RadioStationsExpanded.deviceData = device:getDeviceData()
+    if device and device:getDeviceData() then
+        RadioStationsExpanded.deviceData = device:getDeviceData()
+        print("Device data found from device parameter. [within onDeviceText]")
+    else
+        local square = getCell():getOrCreateGridSquare(x, y, z)
+        if square then
+            for i = 0, square:getObjects():size() - 1 do
+                local obj = square:getSpecialObjects():get(i)
+                if obj and obj:getDeviceData() then
+                    RadioStationsExpanded.deviceData = obj:getDeviceData()
+                    print("Device data found from square objects. [within square]")
+                    break
+                end
+            end
+        end
+    end
+
     local msg = RadioStationsExpanded.currentMessage
     if not msg then
         print("No current message is broadcasting...")
         return
     end
 
-    -- 4.1 Play sounds THROUGH THE ACTUAL RADIO (this is the real one)
-    if msg.soundsToPlay then
-        local dd = device:getDeviceData()
-        if dd then
-            for _, soundName in ipairs(msg.soundsToPlay) do
-                dd:playSound(soundName) -- MetaPistol1, MetaHelicopter, etc.
-                print("We reached a loop to play sounds")
-            end
-            msg.soundsToPlay = nil -- play only once per broadcast
-        end
-    end
-
     -- 4.2 Trigger spawns (only once, when broadcast starts)
     if msg.triggeringSpawns then
         createSpawns(msg)
-        msg.triggeringSpawns = false
     end
 
     -- 4.3 Mark message as played when finished
-    local key = msg.messageKey
-    if key and not RadioExpandedCache.playedMessages[key] then
-        RadioExpandedCache.playedMessages[key] = true
-    end
 end
 
 -- ===================================================================
@@ -212,5 +234,7 @@ Events.OnGameStart.Add(initModData)
 Events.OnNewGame.Add(resetForNewGame)
 Events.EveryTenMinutes.Add(scheduledBroadcast)
 Events.OnDeviceText.Add(onDeviceText)
-_G.rse = function(n) RadioStationsExpanded.ForceMessage(n) end
+_G.rse = function(n)
+    RadioStationsExpanded.ForceMessage(n)
+end
 
