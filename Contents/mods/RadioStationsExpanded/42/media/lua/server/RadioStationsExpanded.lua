@@ -87,12 +87,17 @@ end
 -- 4. MAIN: Playing sounds through radio. Please God, make this work.
 -- ===================================================================
 local function playingSoundsThroughRadio(deviceData, soundsToPlay)
-    local soundName = soundsToPlay
+    local count = 1;
     if not deviceData then
         print("No device data available for playing sounds.")
         return
     end
+    
+    for _, soundName in ipairs(soundsToPlay) do
         deviceData:playSoundSend(soundName, true)
+        count = count + 1
+    end
+        print("Played " .. tostring(count - 1) .. " sounds through the radio.")
 end
 
 -- ===================================================================
@@ -230,6 +235,29 @@ function RadioStationsExpanded.ForceMessage(index)
     print("[RSE] Forced broadcast: " .. RadioStationsExpanded.currentMessage.messageKey .. " with sounds: " .. tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
 end
 
+function RadioStationsExpanded.ResetAllMessages()
+    local modData = ModData.getOrCreate("RadioStationsExpanded")
+    
+    -- Clear the tracking tables
+    modData.playedMessages = {}
+    modData.spawnedMessages = {}
+    
+    -- Force refresh the local cache
+    RadioExpandedCache = modData
+    
+    -- Optional: clear current broadcast so it doesn't glitch
+    local channel = DynamicRadio.cache["SURV-001"]
+    if channel and channel:getAiringBroadcast() then
+        channel:setAiringBroadcast(nil)
+    end
+    
+    RadioStationsExpanded.currentMessage = nil
+    RadioStationsExpanded.currentBroadcast = nil
+    RadioStationsExpanded.deviceData = nil
+    
+    print("[RadioStationsExpanded] All messages have been reset! Every broadcast can play and spawn again.")
+end
+
 -- ===================================================================
 -- 7. Events
 -- ===================================================================
@@ -239,5 +267,8 @@ Events.EveryTenMinutes.Add(scheduledBroadcast)
 Events.OnDeviceText.Add(onDeviceText)
 _G.rse = function(n)
     RadioStationsExpanded.ForceMessage(n)
+end
+_G.rse_reset = function()
+    RadioStationsExpanded.ResetAllMessages()
 end
 
