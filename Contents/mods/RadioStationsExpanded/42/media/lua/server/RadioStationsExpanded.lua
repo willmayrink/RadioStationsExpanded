@@ -87,15 +87,13 @@ end
 -- 4. MAIN: Playing sounds through radio. Please God, make this work.
 -- ===================================================================
 local function playingSoundsThroughRadio(deviceData, soundsToPlay)
-    if not deviceData or not soundsToPlay then
+    local soundName = soundsToPlay
+    if not deviceData then
+        print("No device data available for playing sounds.")
         return
     end
-
-    for _, soundName in ipairs(soundsToPlay) do
-        deviceData:playSound(soundName)
-    end
+        deviceData:playSoundSend(soundName, true)
 end
-
 
 -- ===================================================================
 -- 5. MAIN: Called every time a radio displays a line of our broadcast
@@ -105,9 +103,19 @@ local function onDeviceText(guid, codes, x, y, z, text, device)
     if channel:getAiringBroadcast() then
         print("A broadcast is airing on SURV-001")
         RadioStationsExpanded.currentBroadcast = channel:getAiringBroadcast()
+
+        local broadcastTotalLines = channel:getAiringBroadcast():getLines():size()
+        local broadcastCurrentLine = channel:getAiringBroadcast():getCurrentLineNumber() + 1
+        if broadcastCurrentLine == broadcastTotalLines then
+            print("Broadcast has reached the final line. BOOM")
+            print("These are the sounds we want to play:" .. tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
+            playingSoundsThroughRadio(RadioStationsExpanded.deviceData,
+                RadioStationsExpanded.currentMessage.soundsToPlay)
+        end
+
         if not RadioStationsExpanded.currentBroadcast:getNextLine() then
             print("This broadcast has no next line.")
-            playingSoundsThroughRadio(RadioStationsExpanded.deviceData, RadioStationsExpanded.currentMessage.soundsToPlay)
+            
         end
     else
         RadioStationsExpanded.currentBroadcast = nil
@@ -117,7 +125,6 @@ local function onDeviceText(guid, codes, x, y, z, text, device)
     -- RadioStationsExpanded.deviceData = device:getDeviceData()
     if device and device:getDeviceData() then
         RadioStationsExpanded.deviceData = device:getDeviceData()
-        print("Device data found from device parameter. [within onDeviceText]")
     else
         local square = getCell():getOrCreateGridSquare(x, y, z)
         if square then
@@ -125,7 +132,7 @@ local function onDeviceText(guid, codes, x, y, z, text, device)
                 local obj = square:getSpecialObjects():get(i)
                 if obj and obj:getDeviceData() then
                     RadioStationsExpanded.deviceData = obj:getDeviceData()
-                    print("Device data found from square objects. [within square]")
+                    print("Device data found from square objects. [using square]")
                     break
                 end
             end
@@ -133,10 +140,6 @@ local function onDeviceText(guid, codes, x, y, z, text, device)
     end
 
     local msg = RadioStationsExpanded.currentMessage
-    if not msg then
-        print("No current message is broadcasting...")
-        return
-    end
 
     -- 4.2 Trigger spawns (only once, when broadcast starts)
     if msg.triggeringSpawns then
@@ -187,8 +190,8 @@ local function scheduledBroadcast()
         for _, line in ipairs(instance.lines or {}) do
             bc:AddRadioLine(line)
         end
+        RadioStationsExpanded.currentMessage = template
 
-        RadioStationsExpanded.currentMessage = instance
         channel:setAiringBroadcast(bc)
     end
 end
@@ -222,9 +225,9 @@ function RadioStationsExpanded.ForceMessage(index)
         bc:AddRadioLine(line)
     end
 
-    RadioStationsExpanded.currentMessage = instance
+    RadioStationsExpanded.currentMessage = template
     channel:setAiringBroadcast(bc)
-    print("[RSE] Forced broadcast: " .. instance.messageKey)
+    print("[RSE] Forced broadcast: " .. RadioStationsExpanded.currentMessage.messageKey .. " with sounds: " .. tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
 end
 
 -- ===================================================================
