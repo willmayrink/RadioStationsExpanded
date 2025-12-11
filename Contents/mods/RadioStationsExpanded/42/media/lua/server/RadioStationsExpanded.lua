@@ -5,10 +5,11 @@ RadioStationsExpanded.currentBroadcast = nil
 
 local RadioExpandedCache = {}
 local complexMessages = require("Messages")
+local lastBroadcastDay = -1
 
--- ===================================================================
--- 1. Add your survivor channel
--- ===================================================================
+-- ===================================================================|
+-- 1. Add your survivor channel                                       |
+-- ===================================================================|
 DynamicRadio.channels = DynamicRadio.channels or {}
 table.insert(DynamicRadio.channels, {
     name = "KY Simplex Calling",
@@ -19,9 +20,9 @@ table.insert(DynamicRadio.channels, {
     airCounterMultiplier = 1.5
 })
 
--- ===================================================================
--- 2. ModData (played & spawned tracking)
--- ===================================================================
+-- ===================================================================|
+-- 2. ModData (played & spawned tracking)                             |
+-- ===================================================================|
 local function initModData()
     local modData = ModData.getOrCreate("RadioStationsExpanded")
     modData.playedMessages = modData.playedMessages or {}
@@ -36,9 +37,9 @@ local function resetForNewGame()
     RadioExpandedCache = modData
 end
 
--- ===================================================================
--- 3. Item / zombie spawning
--- ===================================================================
+-- ===================================================================|
+-- 3. Item / zombie spawning                                          |
+-- ===================================================================|
 local function createSpawns(message)
     local key = message.messageKey
     if RadioExpandedCache.spawnedMessages[key] then
@@ -81,59 +82,82 @@ local function createSpawns(message)
     end
 
     RadioExpandedCache.spawnedMessages[key] = true
+    ModData.transmit("RadioStationsExpanded")
 end
 
--- ===================================================================
--- 4. MAIN: Playing sounds through radio. Please God, make this work.
--- ===================================================================
+-- =================================================================================|
+-- 4. MAIN: Playing sounds through radio. Please God, make this work.               |
+-- =================================================================================|
 local function playingSoundsThroughRadio(deviceData, soundsToPlay)
     local count = 1;
     if not deviceData then
         print("No device data available for playing sounds.")
         return
     end
-    
+
     for _, soundName in ipairs(soundsToPlay) do
         deviceData:playSoundSend(soundName, true)
         count = count + 1
     end
-        print("Played " .. tostring(count - 1) .. " sounds through the radio.")
+    print("Played " .. tostring(count - 1) .. " sounds through the radio.")
 end
 
--- ===================================================================
--- 5. MAIN: Called every time a radio displays a line of our broadcast
--- ===================================================================
+-- ==================================================================================|
+-- 5. MAIN: Called every time a radio displays a line of our broadcast               |
+-- ==================================================================================|
+-- ==================================================================================|
+-- 5. MAIN: Called every time a radio displays a line of our broadcast               |
+-- ==================================================================================|
 local function onDeviceText(guid, codes, x, y, z, text, device)
     local channel = DynamicRadio.cache["SURV-001"]
-    if channel:getAiringBroadcast() then
-        print("A broadcast is airing on SURV-001")
-        RadioStationsExpanded.currentBroadcast = channel:getAiringBroadcast()
+    local deviceData = device:getDeviceData()
+    local msg = RadioStationsExpanded.currentMessage
 
-        local broadcastTotalLines = channel:getAiringBroadcast():getLines():size()
-        local broadcastCurrentLine = channel:getAiringBroadcast():getCurrentLineNumber() + 1
-        if broadcastCurrentLine == broadcastTotalLines then
-            print("Broadcast has reached the final line. BOOM")
-            print("These are the sounds we want to play:" .. tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
-            playingSoundsThroughRadio(RadioStationsExpanded.deviceData,
-                RadioStationsExpanded.currentMessage.soundsToPlay)
-        end
+    -- Logic for equipped radio device on player
+    if deviceData:getChannel() == 88000 and deviceData:isReceivingSignal() then
 
-        if not RadioStationsExpanded.currentBroadcast:getNextLine() then
-            print("This broadcast has no next line.")
+        if channel:getAiringBroadcast() then
+            print("A broadcast is airing on SURV-001")
+            RadioStationsExpanded.currentBroadcast = channel:getAiringBroadcast()
             
+            if msg and msg.triggeringSpawns then
+                createSpawns(msg)
+            end
+            
+            local broadcastTotalLines = channel:getAiringBroadcast():getLines():size()
+            local broadcastCurrentLine = channel:getAiringBroadcast():getCurrentLineNumber() + 1
+            
+            if broadcastCurrentLine == broadcastTotalLines then
+                print("Broadcast has reached the final line. BOOM")
+                print("These are the sounds we want to play:" ..
+                          tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
+
+                -- 4.1 Play sounds through radio
+                playingSoundsThroughRadio(RadioStationsExpanded.deviceData,
+                    RadioStationsExpanded.currentMessage.soundsToPlay)
+                
+                -- 4.3 Mark message as played e SINCRONIZA
+                if msg and msg.messageKey then
+                    RadioExpandedCache.playedMessages[msg.messageKey] = true
+                    ModData.transmit("RadioStationsExpanded")
+                end
+            end
+
+            if not RadioStationsExpanded.currentBroadcast:getNextLine() then
+                print("This broadcast has no next line.")
+            end
+            
+        else
+            RadioStationsExpanded.currentBroadcast = nil
+            print("No broadcast is airing on SURV-001")
+            return
         end
-    else
-        RadioStationsExpanded.currentBroadcast = nil
-        print("No broadcast is airing on SURV-001")
-        return
-    end
-    -- RadioStationsExpanded.deviceData = device:getDeviceData()
-    if device and device:getDeviceData() then
-        RadioStationsExpanded.deviceData = device:getDeviceData()
+
+    -- Logic for radio in the world (on a square)
     else
         local square = getCell():getOrCreateGridSquare(x, y, z)
         if square then
-            for i = 0, square:getObjects():size() - 1 do
+            for i = 0, square:getSpecialObjects():size() - 1 do
                 local obj = square:getSpecialObjects():get(i)
                 if obj and obj:getDeviceData() then
                     RadioStationsExpanded.deviceData = obj:getDeviceData()
@@ -141,23 +165,57 @@ local function onDeviceText(guid, codes, x, y, z, text, device)
                     break
                 end
             end
+        else
+            print("No square found at coordinates: " .. tostring(x) .. ", " .. tostring(y) .. ", " .. tostring(z))
+            return
+        end
+        
+        local deviceDataSquare = RadioStationsExpanded.deviceData
+        if deviceDataSquare and deviceDataSquare:getChannel() == 88000 and deviceDataSquare:isReceivingSignal() then
+            if channel:getAiringBroadcast() then
+                print("A broadcast is airing on SURV-001 [using square]")
+                RadioStationsExpanded.currentBroadcast = channel:getAiringBroadcast()
+
+                if msg and msg.triggeringSpawns then
+                    createSpawns(msg)
+                end
+
+                local broadcastTotalLines = channel:getAiringBroadcast():getLines():size()
+                local broadcastCurrentLine = channel:getAiringBroadcast():getCurrentLineNumber() + 1
+                
+                if broadcastCurrentLine == broadcastTotalLines then
+                    print("Broadcast has reached the final line. BOOM [using square]")
+                    print("These are the sounds we want to play:" ..
+                              tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
+
+                    -- Play sounds
+                    playingSoundsThroughRadio(RadioStationsExpanded.deviceData,
+                        RadioStationsExpanded.currentMessage.soundsToPlay)
+                    
+                    -- Mark as played e SINCRONIZA
+                    if msg and msg.messageKey then
+                        RadioExpandedCache.playedMessages[msg.messageKey] = true
+                        ModData.transmit("RadioStationsExpanded")
+                    end
+                end
+
+                if not RadioStationsExpanded.currentBroadcast:getNextLine() then
+                    print("This broadcast has no next line. [using square]")
+                end
+                
+            else
+                RadioStationsExpanded.currentBroadcast = nil
+                print("No broadcast is airing on SURV-001 [using square]")
+                return
+            end
         end
     end
-
-    local msg = RadioStationsExpanded.currentMessage
-
-    -- 4.2 Trigger spawns (only once, when broadcast starts)
-    if msg.triggeringSpawns then
-        createSpawns(msg)
-    end
-
-    -- 4.3 Mark message as played when finished
 end
 
--- ===================================================================
--- 5. Normal scheduled broadcast
--- ===================================================================
-local lastBroadcastDay = -1
+-- ==================================================================================|
+-- 5. Normal scheduled broadcast                                                     |
+-- ==================================================================================|
+
 local function scheduledBroadcast()
     local gt = getGameTime()
     local day = gt:getDay()
@@ -195,15 +253,15 @@ local function scheduledBroadcast()
         for _, line in ipairs(instance.lines or {}) do
             bc:AddRadioLine(line)
         end
-        RadioStationsExpanded.currentMessage = template
+        RadioStationsExpanded.currentMessage = instance
 
         channel:setAiringBroadcast(bc)
     end
 end
 
--- ===================================================================
--- 6. Force message (debug / quests)
--- ===================================================================
+-- ==================================================================================|
+-- 6. Force message (debug / quests)                                                 |
+-- ==================================================================================|
 function RadioStationsExpanded.ForceMessage(index)
     local channel = DynamicRadio.cache["SURV-001"]
     if not channel then
@@ -230,37 +288,41 @@ function RadioStationsExpanded.ForceMessage(index)
         bc:AddRadioLine(line)
     end
 
-    RadioStationsExpanded.currentMessage = template
+    RadioStationsExpanded.currentMessage = instance
     channel:setAiringBroadcast(bc)
-    print("[RSE] Forced broadcast: " .. RadioStationsExpanded.currentMessage.messageKey .. " with sounds: " .. tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
+    print("[RSE] Forced broadcast: " .. RadioStationsExpanded.currentMessage.messageKey .. " with sounds: " ..
+              tostring(RadioStationsExpanded.currentMessage.soundsToPlay))
 end
 
+-- ==================================================================================|
+-- 6. Reset All Messages (debug)                                                     |
+-- ==================================================================================|
 function RadioStationsExpanded.ResetAllMessages()
     local modData = ModData.getOrCreate("RadioStationsExpanded")
-    
+
     -- Clear the tracking tables
     modData.playedMessages = {}
     modData.spawnedMessages = {}
-    
+
     -- Force refresh the local cache
     RadioExpandedCache = modData
-    
-    -- Optional: clear current broadcast so it doesn't glitch
+
+    -- Clear current broadcast so it doesn't glitch
     local channel = DynamicRadio.cache["SURV-001"]
     if channel and channel:getAiringBroadcast() then
         channel:setAiringBroadcast(nil)
     end
-    
+
     RadioStationsExpanded.currentMessage = nil
     RadioStationsExpanded.currentBroadcast = nil
     RadioStationsExpanded.deviceData = nil
-    
+
     print("[RadioStationsExpanded] All messages have been reset! Every broadcast can play and spawn again.")
 end
 
--- ===================================================================
--- 7. Events
--- ===================================================================
+-- ==================================================================================|
+-- 7. Events                                                                         |
+-- ==================================================================================|
 Events.OnGameStart.Add(initModData)
 Events.OnNewGame.Add(resetForNewGame)
 Events.EveryTenMinutes.Add(scheduledBroadcast)
