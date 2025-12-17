@@ -22,13 +22,9 @@ table.insert(DynamicRadio.channels, {
 -- Helper: table.contains (for arrays; we use sets now, but backward compat)
 local function tableContains(tbl, value)
     for _, v in ipairs(tbl) do
-<<<<<<< Updated upstream
-        if v == value then return true end
-=======
         if v == value then
             return true
         end
->>>>>>> Stashed changes
     end
     return false
 end
@@ -36,30 +32,19 @@ end
 -- Helper: table size for sets
 local function tableSize(tbl)
     local count = 0
-<<<<<<< Updated upstream
-    for _ in pairs(tbl) do count = count + 1 end
-=======
     for _ in pairs(tbl) do
         count = count + 1
     end
->>>>>>> Stashed changes
     return count
 end
 
 local function initModData()
     local modData = ModData.getOrCreate("RadioStationsExpanded")
     if not modData.playedMessages then
-<<<<<<< Updated upstream
-        modData.playedMessages = {}  -- Now a set { [key] = true }
-    end
-    if not modData.spawnedMessages then
-        modData.spawnedMessages = {}  -- Per-key spawn flags { [key] = true }
-=======
         modData.playedMessages = {} -- Now a set { [key] = true }
     end
     if not modData.spawnedMessages then
         modData.spawnedMessages = {} -- Per-key spawn flags { [key] = true }
->>>>>>> Stashed changes
     end
     print("Initialized RadioStationsExpanded mod data.")
     print("Played messages count: " .. tableSize(modData.playedMessages))
@@ -73,19 +58,11 @@ local function onNewGameReset()
     ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
     ModData.getOrCreate("RadioStationsExpanded").spawnedMessages = modData.spawnedMessages
     print("RSE: Reset data for new game.")
-<<<<<<< Updated upstream
-    initModData()  -- Re-cache
-end
-
-local function createSpawns(_airedMessage)
-    local messageSpawn = _airedMessage  -- Assume copy from playMessage
-=======
     initModData() -- Re-cache
 end
 
 local function createSpawns(_airedMessage)
     local messageSpawn = _airedMessage -- Assume copy from playMessage
->>>>>>> Stashed changes
     local key = messageSpawn.messageKey
     local modData = RadioExpandedCache
 
@@ -103,12 +80,8 @@ local function createSpawns(_airedMessage)
                 local spotY = (ZombRand(1, 35)) / 10
                 print("spotX is: " .. spotX .. " spotY is: " .. spotY)
                 if square:AddWorldInventoryItem(itemId, spotX, spotY, 0) then
-<<<<<<< Updated upstream
-                    print("Spawned item: " .. itemId .. " at X: " .. messageSpawn.coordinates.x .. " Y: " .. messageSpawn.coordinates.y)
-=======
                     print("Spawned item: " .. itemId .. " at X: " .. messageSpawn.coordinates.x .. " Y: " ..
                               messageSpawn.coordinates.y)
->>>>>>> Stashed changes
                 end
             end
             if messageSpawn.spawnsCorpses then
@@ -117,17 +90,12 @@ local function createSpawns(_airedMessage)
                     print("Spawning " .. messageSpawn.amountCorpses .. " corpses in room: " .. tostring(roomDef))
                     VirtualZombieManager.instance:addZombiesToMap(messageSpawn.amountCorpses, roomDef, false)
                 else
-<<<<<<< Updated upstream
-                    print("No room def; world spawn at " .. messageSpawn.coordinates.x .. "," .. messageSpawn.coordinates.y)
-                    VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x, messageSpawn.coordinates.y, messageSpawn.coordinates.z)
-=======
                     for i = 1, messageSpawn.amountCorpses do
                         print("It's a world zombie spawn at " .. messageSpawn.coordinates.x .. "," ..
                                   messageSpawn.coordinates.y .. ", current zombie count: " .. i)
                         VirtualZombieManager.instance:createRealZombieNow(messageSpawn.coordinates.x,
                             messageSpawn.coordinates.y, messageSpawn.coordinates.z)
                     end
->>>>>>> Stashed changes
                 end
             end
         else
@@ -145,18 +113,6 @@ end
 
 local function verifyRadioMessage()
     local current = RadioStationsExpanded.currentMessage
-<<<<<<< Updated upstream
-    if current then  -- Always check if broadcast is active
-        if current.triggeringSpawns then
-            createSpawns(current)
-        end
-        current.triggeringSpawns = false  -- Reset on copy (safe)
-        
-        -- Mark as played post-air (completion)
-        local key = current.messageKey
-        local modData = RadioExpandedCache
-        if not modData.playedMessages[key] then  -- Double-check (edge: multi-call)
-=======
     if current then -- Always check if broadcast is active
         if current.triggeringSpawns then
             createSpawns(current)
@@ -167,16 +123,10 @@ local function verifyRadioMessage()
         local key = current.messageKey
         local modData = RadioExpandedCache
         if not modData.playedMessages[key] then -- Double-check (edge: multi-call)
->>>>>>> Stashed changes
             modData.playedMessages[key] = true
             ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
             print("RSE: Completed/Marked key " .. key .. " as played.")
         end
-<<<<<<< Updated upstream
-        
-=======
-
->>>>>>> Stashed changes
         -- Optional: Clear currentMessage after full broadcast (prevents stale)
         -- RadioStationsExpanded.currentMessage = nil  -- Uncomment if broadcasts overlap rarely
     end
@@ -223,28 +173,16 @@ local function playMessage()
     local broadCast = RadioBroadCast.new("SURV channel - ID: " .. tostring(ZombRand(1, 99999)), -1, -1)
     if not broadCast then
         print("Failed to create broadcast.")
-<<<<<<< Updated upstream
-        return  -- No unmark needed (wasn't marked)
-    end
-
-    RadioStationsExpanded.currentMessage = airedMessage  -- Update global
-=======
         return -- No unmark needed (wasn't marked)
     end
 
     RadioStationsExpanded.currentMessage = airedMessage -- Update global
->>>>>>> Stashed changes
     for _, line in ipairs(airedMessage.lines) do
         if line then
             broadCast:AddRadioLine(line)
         end
     end
     radioChannel:setAiringBroadcast(broadCast)
-<<<<<<< Updated upstream
-    
-=======
-
->>>>>>> Stashed changes
     print("RSE: Aired key " .. key .. " (" .. (#unplayed - 1) .. " left; marking on completion).")
 end
 
@@ -266,8 +204,4 @@ end
 Events.OnGameStart.Add(initModData)
 Events.OnNewGame.Add(onNewGameReset)
 Events.EveryTenMinutes.Add(scheduledBroadcast)
-<<<<<<< Updated upstream
 Events.OnDeviceText.Add(verifyRadioMessage)
-=======
-Events.OnDeviceText.Add(verifyRadioMessage)
->>>>>>> Stashed changes

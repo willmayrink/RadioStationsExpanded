@@ -25,11 +25,6 @@ local complexMessages = {
         messageKey = 2,
         triggeringSpawns = false,
         spawnsCorpses = false,
-<<<<<<< Updated upstream
-        triggeringSounds = true,
-        metaSoundId = "MetaPistol1",
-=======
->>>>>>> Stashed changes
         spawnsGroup = nil,
         coordinates = nil,
         spawnedItems = nil,
@@ -77,11 +72,6 @@ local complexMessages = {
         triggeringSpawns = true,
         spawnsCorpses = true,
         amountCorpses = 1,
-<<<<<<< Updated upstream
-        triggeringSounds = true,
-        metaSoundId = "MetaPistol1",
-=======
->>>>>>> Stashed changes
         spawnsGroup = "guns",
         spawnedItems = {"AssaultRifle", "Pistol3","Shotgun","ShotgunShellsBox","Bullets9mm","WalkieTalkie4","Bag_DuffelBag"},
         coordinates = {x = 7253, y = 8379, z = 0},
