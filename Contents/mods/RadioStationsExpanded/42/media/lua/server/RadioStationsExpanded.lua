@@ -51,6 +51,31 @@ local function initModData()
     RadioExpandedCache = modData
 end
 
+local function calcGameStage(days)
+    if days <= 3 then
+        return "early"
+    elseif days <= 14 then
+        return "mid"
+    elseif days <= 60 then
+        return "late"
+    else
+        return "ultralate"
+    end
+end
+
+local function updateGameStage()
+    local daysSurvived = getGameTime():getDaysSurvived()
+    local gameStage = calcGameStage(daysSurvived)
+    
+    local modData = ModData.getOrCreate("RadioStationsExpanded")
+    
+    -- Only update and transmit if the stage actually changed (saves minor overhead in MP)
+    if modData.gameStage ~= gameStage then
+        modData.gameStage = gameStage
+        ModData.transmit("RadioStationsExpanded")  -- Important for multiplayer sync
+    end
+end
+
 local function onNewGameReset()
     local modData = ModData.getOrCreate("RadioStationsExpanded")
     modData.playedMessages = {}
