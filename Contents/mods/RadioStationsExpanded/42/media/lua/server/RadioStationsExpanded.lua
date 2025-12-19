@@ -39,7 +39,10 @@ local function tableSize(tbl)
 end
 
 local function initModData()
-    local modData = ModData.getOrCreate("RadioStationsExpanded")
+    local modData = ModData.getOrCreate("RadioStationsExpanded") 
+    if not modData.gameStage then
+        modData.gameStage = "early"
+    end
     if not modData.playedMessages then
         modData.playedMessages = {} -- Now a set { [key] = true }
     end
@@ -65,8 +68,7 @@ end
 
 local function updateGameStage()
     local daysSurvived = getGameTime():getDaysSurvived()
-    local gameStage = calcGameStage(daysSurvived)
-    
+    local gameStage = calcGameStage(daysSurvived) 
     local modData = ModData.getOrCreate("RadioStationsExpanded")
     
     -- Only update and transmit if the stage actually changed (saves minor overhead in MP)
@@ -80,6 +82,7 @@ local function onNewGameReset()
     local modData = ModData.getOrCreate("RadioStationsExpanded")
     modData.playedMessages = {}
     modData.spawnedMessages = {}
+    modData.gameStage = "early"
     ModData.getOrCreate("RadioStationsExpanded").playedMessages = modData.playedMessages
     ModData.getOrCreate("RadioStationsExpanded").spawnedMessages = modData.spawnedMessages
     print("RSE: Reset data for new game.")
