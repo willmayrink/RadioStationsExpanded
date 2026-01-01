@@ -2,6 +2,8 @@
 
 A Project Zomboid mod adding a dynamic survivor radio channel ("KY Simplex Calling" at 88.0 MHz) with 21 unique broadcasts. 80% are atmospheric tales from Knox County's fall; 20% are loot hints triggering on-site spawns (items, corpses). Messages play without repeats in a playthrough, with a 5% daily chance in the 8-11 AM window. Built for Build 42.
 
+![Steam Workshop](images/steam-workshop.png)
+
 ## Features
 - **Dynamic Channel**: Tune to 88.0 MHz for lore-rich survivor stories and hints (e.g., Rosewood PD guns, Muldraugh meds).
 - **Non-Repeating**: ModData tracks played messages—fresh per save, resets on new games.
